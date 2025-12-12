@@ -26,9 +26,9 @@ def main():
     file_tree = github_client.get_file_tree(owner, repo)
 
     print("Analyzing metrics...")
-    metrics_analyzer = Metrics(commits)
+    metrics_analyzer = Metrics(file_tree)
     churn = metrics_analyzer.calculate_churn()
-    hotspots = metrics_analyzer.identify_hotspots()
+    hotspots = metrics_analyzer.identify_hotspots(churn)
 
     print("Building graph...")
     graph_builder = GraphBuilder(file_tree, churn)

@@ -1,0 +1,75 @@
+import os
+import sys
+from celery import Celery
+
+# Add the project root to the python path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+from app.config import settings
+from app.core.github_client import GitHubClient
+from app.core.metrics import Metrics
+from app.core.graph_builder import GraphBuilder
+from app.core.narrative import Narrative
+from app.core.copilot_client import CopilotClient
+from app.core.db_client import db_client
+
+celery_app = Celery(
+    "worker",
+    broker=settings.CELERY_BROKER_URL,
+    backend=settings.CELERY_RESULT_BACKEND,
+)
+
+@celery_app.task(bind=True)
+def analyze_repository(self, owner: str, repo: str, repo_id: str):
+    """
+    A Celery task to analyze a GitHub repository.
+    """
+    print(f"Analyzing {owner}/{repo}")
+    
+    # Update job status to 'running'
+    db_client.update_job_status(self.request.id, "running")
+
+    try:
+        # 1. Fetch data from GitHub
+        github_client = GitHubClient()
+        file_tree = github_client.get_file_tree(owner, repo)
+
+        # 2. Calculate metrics
+        metrics_analyzer = Metrics(file_tree)
+        churn = metrics_analyzer.calculate_churn()
+        hotspots = metrics_analyzer.identify_hotspots(churn)
+
+        # 3. Build graph
+        graph_builder = GraphBuilder(file_tree, churn)
+        graph = graph_builder.build_synapse_graph()
+        clusters = graph_builder.generate_clusters()
+
+        # 4. Generate narrative
+        copilot_client = CopilotClient(api_key=settings.COPILOT_KEY)
+        summary = {"hotspots": hotspots, "clusters": list(clusters.keys())}
+        narrative_generator = Narrative(summary, copilot_client)
+        story = narrative_generator.generate_story()
+
+        # 5. Store results in DB
+        analysis_data = {
+            "job_id": self.request.id,
+            "graph": graph,
+            "metrics": {
+                "churn": churn,
+                "hotspots": hotspots,
+            },
+            "clusters": clusters,
+            "narrative": story,
+        }
+        db_client.store_analysis_result(repo_id, analysis_data)
+
+        return {"status": "completed", "result": analysis_data}
+
+    except Exception as e:
+        db_client.update_job_status(self.request.id, "failed")
+        print(f"Analysis failed for {owner}/{repo}: {e}")
+        # Optionally re-raise the exception if you want Celery to record it as a failure
+        raise
+
+# To run the worker:
+# celery -A worker.worker.celery_app worker --loglevel=info

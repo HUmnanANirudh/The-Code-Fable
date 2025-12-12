@@ -47,16 +47,16 @@ function App() {
       // Poll for status
       const pollStatus = async () => {
         const statusResponse = await fetch(
-          `${API_URL}/api/status?id=${analyzeData.job_id}`
+          `${API_URL}/api/status/${analyzeData.job_id}`
         );
         if (!statusResponse.ok) {
           throw new Error("Failed to get job status");
         }
         const statusData = await statusResponse.json();
 
-        if (statusData.status === "completed") {
+        if (statusData.status === "SUCCESS") {
           const resultsResponse = await fetch(
-            `${API_URL}/api/results?id=${analyzeData.job_id}`
+            `${API_URL}/api/results/${analyzeData.job_id}`
           );
           if (!resultsResponse.ok) {
             throw new Error("Failed to get results");
@@ -64,7 +64,7 @@ function App() {
           const resultsData = await resultsResponse.json();
           setResults(resultsData);
           setLoading(false);
-        } else if (statusData.status === "failed") {
+        } else if (statusData.status === "FAILURE") {
           throw new Error("Analysis job failed");
         } else {
           setTimeout(pollStatus, 2000);

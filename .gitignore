@@ -1,0 +1,31 @@
+# Environments
+backend/.env
+.env
+.env.*
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+pip-cache/
+.ipynb_checkpoints
+
+# Node
+node_modules/
+dist/
+build/
+.npm/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo

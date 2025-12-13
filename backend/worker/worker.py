@@ -19,7 +19,9 @@ celery_app = Celery(
     backend=settings.CELERY_RESULT_BACKEND,
 )
 
-@celery_app.task(bind=True)
+from celery.exceptions import SoftTimeLimitExceeded
+
+@celery_app.task(bind=True, soft_time_limit=60, time_limit=70)
 def analyze_repository(self, owner: str, repo: str, repo_id: str):
     """
     A Celery task to analyze a GitHub repository.
@@ -65,6 +67,10 @@ def analyze_repository(self, owner: str, repo: str, repo_id: str):
 
         return {"status": "completed", "result": analysis_data}
 
+    except SoftTimeLimitExceeded:
+        db_client.update_job_status(self.request.id, "TIMED_OUT")
+        print(f"Analysis timed out for {owner}/{repo}")
+        raise
     except Exception as e:
         db_client.update_job_status(self.request.id, "failed")
         print(f"Analysis failed for {owner}/{repo}: {e}")

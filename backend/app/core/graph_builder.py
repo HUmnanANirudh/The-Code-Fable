@@ -26,17 +26,23 @@ class GraphBuilder:
                 "size": churn,  # Use churn to determine node size
             })
 
-        # Create edges based on directory structure
-        path_map = {node['id']: node for node in self.nodes}
+        # Group nodes by directory for efficient edge creation
+        nodes_by_dir: Dict[str, List[Dict[str, Any]]] = {}
         for node in self.nodes:
             dir_name = os.path.dirname(node['id'])
-            # Find other files in the same directory and create edges
-            for other_node in self.nodes:
-                if node['id'] != other_node['id'] and os.path.dirname(other_node['id']) == dir_name:
-                    self.edges.append({
-                        "source": node['id'],
-                        "target": other_node['id'],
-                    })
+            if dir_name not in nodes_by_dir:
+                nodes_by_dir[dir_name] = []
+            nodes_by_dir[dir_name].append(node)
+
+        # Create edges based on directory structure (optimized)
+        for dir_name, nodes_in_dir in nodes_by_dir.items():
+            if len(nodes_in_dir) > 1:
+                for i in range(len(nodes_in_dir)):
+                    for j in range(i + 1, len(nodes_in_dir)):
+                        self.edges.append({
+                            "source": nodes_in_dir[i]['id'],
+                            "target": nodes_in_dir[j]['id'],
+                        })
 
         return {"nodes": self.nodes, "links": self.edges}
 

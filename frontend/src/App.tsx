@@ -38,9 +38,12 @@ function App() {
       const analyzeResponse = await fetch(
         `${API_URL}/analyze?repo=${owner}/${repo}`
       );
+
       if (!analyzeResponse.ok) {
-        throw new Error("Failed to start analysis");
+        const errorData = await analyzeResponse.json();
+        throw new Error(errorData.detail || "Failed to start analysis");
       }
+
       const analyzeData = await analyzeResponse.json();
 
       if (analyzeData.job_id) {
@@ -68,6 +71,9 @@ function App() {
             setLoading(false);
           } else if (statusData.status === "failed") {
             setError("Analysis job failed. Please try again later.");
+            setLoading(false);
+          } else if (statusData.status === "TIMED_OUT") {
+            setError("Analysis timed out. The repository may be too large.");
             setLoading(false);
           } else {
             setTimeout(pollStatus, 2000);

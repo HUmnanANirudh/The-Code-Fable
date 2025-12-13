@@ -101,7 +101,7 @@ class DBClient:
             return repo_data
         return None
 
-    def get_results_by_job_id(self, job_id: uuid.UUID) -> Optional[Dict[str, Any]]:
+    def get_results_by_job_id(self, job_id: str) -> Optional[Dict[str, Any]]:
         """
         Retrieves the analysis results for a given job ID.
         """

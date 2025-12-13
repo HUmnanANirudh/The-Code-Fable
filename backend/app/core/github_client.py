@@ -55,11 +55,13 @@ class GitHubClient:
             pull_requests.extend(data)
         return pull_requests
 
-    def get_file_tree(self, owner: str, repo: str, branch: str = "main") -> List[Dict[str, Any]]:
+    def get_file_tree(self, owner: str, repo: str) -> List[Dict[str, Any]]:
         """
-        Fetches the file tree for a repository branch.
+        Fetches the file tree for a repository's default branch.
         """
-        url = f"{self.api_url}/repos/{owner}/{repo}/git/trees/{branch}?recursive=1"
+        repo_info = self.get_repo(owner, repo)
+        default_branch = repo_info.get("default_branch", "main")
+        url = f"{self.api_url}/repos/{owner}/{repo}/git/trees/{default_branch}?recursive=1"
         response = requests.get(url, headers=self.headers)
         response.raise_for_status()
         data = response.json()

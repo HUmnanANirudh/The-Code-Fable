@@ -66,7 +66,7 @@ function App() {
             const resultsData = await resultsResponse.json();
             setResults(resultsData);
             setLoading(false);
-          } else if (statusData.status === "FAILURE") {
+          } else if (statusData.status === "failed") {
             setError("Analysis job failed. Please try again later.");
             setLoading(false);
           } else {

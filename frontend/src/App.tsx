@@ -42,37 +42,44 @@ function App() {
         throw new Error("Failed to start analysis");
       }
       const analyzeData = await analyzeResponse.json();
-      setJobId(analyzeData.job_id);
 
-      // Poll for status
-      const pollStatus = async () => {
-        const statusResponse = await fetch(
-          `${API_URL}/status/${analyzeData.job_id}`
-        );
-        if (!statusResponse.ok) {
-          throw new Error("Failed to get job status");
-        }
-        const statusData = await statusResponse.json();
+      if (analyzeData.job_id) {
+        setJobId(analyzeData.job_id);
 
-        if (statusData.status === "completed") {
-          const resultsResponse = await fetch(
-            `${API_URL}/results/${analyzeData.job_id}`
+        // Poll for status
+        const pollStatus = async () => {
+          const statusResponse = await fetch(
+            `${API_URL}/status/${analyzeData.job_id}`
           );
-          if (!resultsResponse.ok) {
-            throw new Error("Failed to get results");
+          if (!statusResponse.ok) {
+            throw new Error("Failed to get job status");
           }
-          const resultsData = await resultsResponse.json();
-          setResults(resultsData);
-          setLoading(false);
-        } else if (statusData.status === "FAILURE") {
-          setError("Analysis job failed. Please try again later.");
-          setLoading(false);
-        } else {
-          setTimeout(pollStatus, 2000);
-        }
-      };
+          const statusData = await statusResponse.json();
 
-      setTimeout(pollStatus, 2000);
+          if (statusData.status === "completed") {
+            const resultsResponse = await fetch(
+              `${API_URL}/results/${analyzeData.job_id}`
+            );
+            if (!resultsResponse.ok) {
+              throw new Error("Failed to get results");
+            }
+            const resultsData = await resultsResponse.json();
+            setResults(resultsData);
+            setLoading(false);
+          } else if (statusData.status === "FAILURE") {
+            setError("Analysis job failed. Please try again later.");
+            setLoading(false);
+          } else {
+            setTimeout(pollStatus, 2000);
+          }
+        };
+
+        setTimeout(pollStatus, 2000);
+      } else {
+        // Repository already analyzed, display results directly
+        setResults(analyzeData.repo);
+        setLoading(false);
+      }
     } catch (err: any) {
       setError(err.message);
       setLoading(false);

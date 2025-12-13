@@ -42,8 +42,7 @@ const ResultsDisplay: React.FC<ResultsProps> = ({ data }) => {
         <div>
           <h3 className="text-lg font-bold mb-2">Synaptic Neuron Graph</h3>
           <div className="border rounded-lg h-[400px]">
-            <GraphDisplay graphData={graphData} />
-          </div>
+            <GraphDisplay graphData={data.results.graph} />
         </div>
         <div>
           <h3 className="text-lg font-bold mb-2">Copilot-generated Story</h3>
@@ -53,18 +52,17 @@ const ResultsDisplay: React.FC<ResultsProps> = ({ data }) => {
           <div>
             <h3 className="text-lg font-bold mb-2">Hotspots</h3>
             <ul className="list-disc list-inside text-muted-foreground">
-              {/* Placeholder */}
-              <li>src/server/api/routers/post.ts</li>
-              <li>src/server/api/root.ts</li>
+              {data.results.metrics.hotspots.map((hotspot: string) => (
+                <li key={hotspot}>{hotspot}</li>
+              ))}
             </ul>
           </div>
           <div>
             <h3 className="text-lg font-bold mb-2">Architecture Clusters</h3>
             <ul className="list-disc list-inside text-muted-foreground">
-              {/* Placeholder */}
-              <li>API and Routing</li>
-              <li>Database and Schema</li>
-              <li>UI Components</li>
+              {Object.keys(data.results.clusters).map((cluster: string) => (
+                <li key={cluster}>{cluster}</li>
+              ))}
             </ul>
           </div>
         </div>

@@ -54,7 +54,7 @@ function App() {
         }
         const statusData = await statusResponse.json();
 
-        if (statusData.status === "SUCCESS") {
+        if (statusData.status === "completed") {
           const resultsResponse = await fetch(
             `${API_URL}/api/results/${analyzeData.job_id}`
           );

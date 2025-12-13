@@ -66,6 +66,7 @@ const ResultsDisplay: React.FC<ResultsProps> = ({ data }) => {
             </ul>
           </div>
         </div>
+        </div>
       </CardContent>
     </Card>
   );

@@ -3,7 +3,8 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class Settings(BaseSettings):
     DATABASE_URL: str = "postgresql://user:password@host:port/database"
     GITHUB_TOKEN: str = "your_github_token"
-    COPILOT_KEY: str = "your_copilot_key"
+    LLM_API_KEY: str = "your_llm_api_key"
+    DEEPSEEK_API_BASE: str = "https://api.deepseek.com/v1"
     CELERY_BROKER_URL: str = "redis://localhost:6379/0"
     CELERY_RESULT_BACKEND: str = "redis://localhost:6379/0"
 

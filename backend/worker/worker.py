@@ -10,7 +10,7 @@ from app.core.github_client import GitHubClient
 from app.core.metrics import Metrics
 from app.core.graph_builder import GraphBuilder
 from app.core.narrative import Narrative
-from app.core.copilot_client import CopilotClient
+from app.core.llm_client import LLMClient
 from app.core.db_client import db_client
 
 celery_app = Celery(
@@ -45,7 +45,7 @@ def analyze_repository(self, owner: str, repo: str, repo_id: str):
         clusters = graph_builder.generate_clusters()
 
         # 4. Generate narrative
-        copilot_client = CopilotClient(api_key=settings.COPILOT_KEY)
+        llm_client = LLMClient(api_key=settings.LLM_API_KEY)
         summary = {"hotspots": hotspots, "clusters": list(clusters.keys())}
         narrative_generator = Narrative(summary, copilot_client)
         story = narrative_generator.generate_story()

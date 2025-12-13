@@ -46,8 +46,8 @@ def analyze_repository(self, owner: str, repo: str, repo_id: str):
 
         # 4. Generate narrative
         llm_client = LLMClient(api_key=settings.LLM_API_KEY)
-        summary = {"hotspots": hotspots, "clusters": list(clusters.keys())}
-        narrative_generator = Narrative(summary, copilot_client)
+        summary = {"hotspots": hotspots, "clusters": clusters}
+        narrative_generator = Narrative(summary, llm_client)
         story = narrative_generator.generate_story()
 
         # 5. Store results in DB

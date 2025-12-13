@@ -20,9 +20,26 @@ def get_status(job_id: str):
     if task is None:
         raise HTTPException(status_code=404, detail="Job not found")
 
+    status = task.status
+    result = None
+
+    if task.ready():
+        if status == "SUCCESS" and isinstance(task.result, dict) and "status" in task.result:
+            # Task completed, use the internal status from analyze_repository's return
+            status = task.result["status"]
+            result = task.result["result"] # Return the actual result
+        elif status == "FAILURE":
+            # Celery task itself failed
+            status = "failed"
+            result = {"error": str(task.result)} # Provide error details
+        else:
+            # Unexpected state, but task is ready
+            status = "failed"
+            result = {"error": "Unknown task completion state."}
+    
     response = {
         "job_id": job_id,
-        "status": task.status,
-        "result": task.result if task.ready() else None,
+        "status": status,
+        "result": result,
     }
     return response

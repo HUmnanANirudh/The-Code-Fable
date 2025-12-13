@@ -13,7 +13,7 @@ import { Label } from "./components/ui/label";
 import ResultsDisplay from "./components/ResultsDisplay";
 import { Spinner } from "./components/ui/spinner";
 
-const API_URL = "http://localhost:8000";
+const API_URL = "http://localhost:8000/api/v1";
 
 function App() {
   const [repoUrl, setRepoUrl] = useState("");
@@ -36,7 +36,7 @@ function App() {
       const [owner, repo] = pathParts;
 
       const analyzeResponse = await fetch(
-        `${API_URL}/api/analyze?repo=${owner}/${repo}`
+        `${API_URL}/analyze?repo=${owner}/${repo}`
       );
       if (!analyzeResponse.ok) {
         throw new Error("Failed to start analysis");
@@ -47,7 +47,7 @@ function App() {
       // Poll for status
       const pollStatus = async () => {
         const statusResponse = await fetch(
-          `${API_URL}/api/status/${analyzeData.job_id}`
+          `${API_URL}/status/${analyzeData.job_id}`
         );
         if (!statusResponse.ok) {
           throw new Error("Failed to get job status");
@@ -56,7 +56,7 @@ function App() {
 
         if (statusData.status === "completed") {
           const resultsResponse = await fetch(
-            `${API_URL}/api/results/${analyzeData.job_id}`
+            `${API_URL}/results/${analyzeData.job_id}`
           );
           if (!resultsResponse.ok) {
             throw new Error("Failed to get results");
@@ -65,7 +65,8 @@ function App() {
           setResults(resultsData);
           setLoading(false);
         } else if (statusData.status === "FAILURE") {
-          throw new Error("Analysis job failed");
+          setError("Analysis job failed. Please try again later.");
+          setLoading(false);
         } else {
           setTimeout(pollStatus, 2000);
         }

@@ -1,14 +1,14 @@
-from .copilot_client import CopilotClient
+from .llm_client import LLMClient
 
 class Narrative:
-    def __init__(self, summary: dict, copilot_client: CopilotClient):
+    def __init__(self, summary: dict, llm_client: LLMClient):
         self.summary = summary
-        self.copilot_client = copilot_client
+        self.llm_client = llm_client
 
     def generate_story(self):
         # This is a placeholder for generating the repository narrative
         prompt = self._format_prompt()
-        story = self.copilot_client.generate(prompt)
+        story = self.llm_client.generate(prompt)
         return story
 
     def _format_prompt(self):

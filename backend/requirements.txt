@@ -6,4 +6,6 @@ redis
 python-dotenv
 psycopg2-binary
 pydantic-settings
-openai
+google-generativeai
+google-generativeai
+redis

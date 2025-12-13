@@ -42,17 +42,18 @@ const ResultsDisplay: React.FC<ResultsProps> = ({ data }) => {
         <div>
           <h3 className="text-lg font-bold mb-2">Synaptic Neuron Graph</h3>
           <div className="border rounded-lg h-[400px]">
-            <GraphDisplay graphData={data.results.graph} />
+            <GraphDisplay graphData={data.result.graph} />
+        </div>
         </div>
         <div>
           <h3 className="text-lg font-bold mb-2">Copilot-generated Story</h3>
-          <p className="text-muted-foreground">{data.results.narrative}</p>
+          <p className="text-muted-foreground">{data.result.narrative}</p>
         </div>
         <div className="grid grid-cols-2 gap-6">
           <div>
             <h3 className="text-lg font-bold mb-2">Hotspots</h3>
             <ul className="list-disc list-inside text-muted-foreground">
-              {data.results.metrics.hotspots.map((hotspot: string) => (
+              {data.result.metrics.hotspots.map((hotspot: string) => (
                 <li key={hotspot}>{hotspot}</li>
               ))}
             </ul>
@@ -60,12 +61,11 @@ const ResultsDisplay: React.FC<ResultsProps> = ({ data }) => {
           <div>
             <h3 className="text-lg font-bold mb-2">Architecture Clusters</h3>
             <ul className="list-disc list-inside text-muted-foreground">
-              {Object.keys(data.results.clusters).map((cluster: string) => (
+              {Object.keys(data.result.clusters).map((cluster: string) => (
                 <li key={cluster}>{cluster}</li>
               ))}
             </ul>
           </div>
-        </div>
         </div>
       </CardContent>
     </Card>

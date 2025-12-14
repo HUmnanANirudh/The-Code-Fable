@@ -1,0 +1,19 @@
+# Railway configuration for multi-service deployment
+
+[[services]]
+name = "backend"
+dockerfile = "Dockerfile.backend"
+
+[services.env]
+PORT = "8000"
+
+[[services]]
+name = "frontend"
+dockerfile = "Dockerfile.frontend"
+
+[services.env]
+PORT = "80"
+
+[[services]]
+name = "worker"
+dockerfile = "Dockerfile.worker"

@@ -1,66 +1,77 @@
 services:
-  # Managed Redis Service
-  - type: redis
-    name: code-fable-redis
-    region: oregon # Optional, but good default. Render picks closest usually.
-    # ipAllowList: [] # By default allows all internal.
-
-  # Backend API
+  # -------------------------------
+  # Backend API (Docker Web Service)
+  # -------------------------------
   - type: web
     name: code-fable-backend
     runtime: docker
     dockerContext: .
     dockerfilePath: Dockerfile.backend
-    plan: free # Optional hint
+    plan: free
+
     envVars:
+      - key: PORT
+        value: "10000"
+
+      - key: NODE_ENV
+        value: production
+
       - key: DATABASE_URL
         sync: false
+
       - key: GITHUB_TOKEN
         sync: false
+
       - key: LLM_API_KEY
         sync: false
-      - key: REDIS_URL
-        fromService:
-          type: redis
-          name: code-fable-redis
-          property: connectionString
-      - key: CELERY_BROKER_URL
-        fromService:
-          type: redis
-          name: code-fable-redis
-          property: connectionString
-      - key: CELERY_RESULT_BACKEND
-        fromService:
-          type: redis
-          name: code-fable-redis
-          property: connectionString
 
-  # Celery Worker
+      # Upstash Redis
+      - key: REDIS_URL
+        sync: false
+
+      - key: CELERY_BROKER_URL
+        sync: false
+
+      - key: CELERY_RESULT_BACKEND
+        sync: false
+
+      - key: REDIS_USE_SSL
+        value: "true"
+
+    healthCheckPath: /health
+
+  # -------------------------------
+  # Celery Worker (Background Worker)
+  # -------------------------------
   - type: worker
     name: code-fable-worker
     runtime: docker
     dockerContext: .
     dockerfilePath: Dockerfile.worker
-    plan: free # Optional
+    plan: free
+
     envVars:
+      - key: NODE_ENV
+        value: production
+
       - key: DATABASE_URL
-        sync: false 
+        sync: false
+
       - key: GITHUB_TOKEN
         sync: false
+
       - key: LLM_API_KEY
         sync: false
+
+      # Same Upstash Redis
       - key: REDIS_URL
-        fromService:
-          type: redis
-          name: code-fable-redis
-          property: connectionString
+        sync: false
+
       - key: CELERY_BROKER_URL
-        fromService:
-          type: redis
-          name: code-fable-redis
-          property: connectionString
+        sync: false
+
       - key: CELERY_RESULT_BACKEND
-        fromService:
-          type: redis
-          name: code-fable-redis
-          property: connectionString
+        sync: false
+
+      - key: REDIS_USE_SSL
+        value: "true"

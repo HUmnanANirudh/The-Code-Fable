@@ -4,7 +4,7 @@ The Code Fable is a web application that analyzes public GitHub repositories and
 
 ## Architecture
 
--   **Frontend:** React, Vite, TailwindCSS, and `react-force-graph-2d` for graph visualization.
+-   **Frontend:** React, Vite, TailwindCSS, and `react-force-graph-2d`(D3.js) for graph visualization.
 -   **Backend:** Python, FastAPI, Celery, Redis.
 
 ## How to Run

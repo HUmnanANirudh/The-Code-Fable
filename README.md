@@ -9,7 +9,43 @@ The Code Fable is a web application that analyzes public GitHub repositories and
 
 ## How to Run
 
-### 1. Backend
+### Option 1: Docker (Recommended)
+
+The easiest way to run the entire project is using Docker Compose, which sets up all services (backend, frontend, worker, PostgreSQL, and Redis) automatically.
+
+```bash
+# Build and start all services
+docker-compose up --build
+
+# Or run in detached mode
+docker-compose up -d --build
+```
+
+**Access the application:**
+- Frontend: http://localhost:3000
+- Backend API: http://localhost:8000
+- API Documentation: http://localhost:8000/docs
+
+**Useful Docker commands:**
+```bash
+# View logs
+docker-compose logs -f
+
+# Stop all services
+docker-compose down
+
+# Stop and remove volumes (clean slate)
+docker-compose down -v
+
+# Restart a specific service
+docker-compose restart backend
+```
+
+**Environment variables:** For production or custom configuration, create a `.env` file in the root directory with your settings (database credentials, API keys, etc.).
+
+### Option 2: Manual Setup
+
+#### 1. Backend
 
 First, navigate to the `backend` directory:
 
@@ -31,7 +67,7 @@ Finally, run the backend server:
 uvicorn app.main:app --reload
 ```
 
-### 2. Frontend
+#### 2. Frontend
 
 In a separate terminal, navigate to the `frontend` directory:
 

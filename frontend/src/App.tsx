@@ -279,7 +279,7 @@ function App() {
                     className="container max-w-[1600px] mx-auto py-8 px-4 pb-12"
                   >
                     <div className="flex justify-between items-center mb-6 pl-10">
-                      <h2 className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent hidden md:block">
+                      <h2 className="text-2xl font-bold bg-linear-to-r from-primary to-accent bg-clip-text text-transparent hidden md:block">
                         Analysis Results
                       </h2>
                       <div className="space-x-2 px-8">

@@ -79,7 +79,7 @@ services:
       dockerfile: Dockerfile.frontend
     container_name: code-fable-frontend
     ports:
-      - "3000:80"
+      - "5173:80"
     depends_on:
       - backend
 

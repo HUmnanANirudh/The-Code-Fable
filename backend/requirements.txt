@@ -7,5 +7,3 @@ python-dotenv
 psycopg2-binary
 pydantic-settings
 google-generativeai
-google-generativeai
-redis

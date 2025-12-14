@@ -30,8 +30,13 @@ def main():
     churn = metrics_analyzer.calculate_churn()
     hotspots = metrics_analyzer.identify_hotspots(churn)
 
+    print("Parsing dependencies...")
+    from backend.app.core.import_parser import ImportParser
+    import_parser = ImportParser(github_client)
+    dependencies = import_parser.get_dependencies(owner, repo, file_tree)
+
     print("Building graph...")
-    graph_builder = GraphBuilder(file_tree, churn)
+    graph_builder = GraphBuilder(file_tree, churn, dependencies)
     graph = graph_builder.build_synapse_graph()
     clusters = graph_builder.generate_clusters()
 

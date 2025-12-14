@@ -1,19 +1,30 @@
-export interface AnalysisResult {
+export interface HistoryItem {
   id: string;
   owner: string;
   name: string;
-  graph: {
-    nodes: any[];
-    links: any[];
-  };
+}
+
+export interface Node {
+  id: string;
+  group: string;
+  size: number;
+}
+
+export interface Link {
+  source: string;
+  target: string;
+}
+
+export interface GraphData {
+  nodes: Node[];
+  links: Link[];
+}
+
+export interface AnalysisResult extends HistoryItem {
+  graph: GraphData;
   narrative: string;
   metrics: {
     hotspots: string[];
   };
-  clusters: Record<string, any>;
-}
-
-export interface GraphData {
-  nodes: any[];
-  links: any[];
+  clusters: Record<string, string[]>;
 }

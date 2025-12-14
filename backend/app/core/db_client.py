@@ -139,7 +139,11 @@ class DBClient:
                     print(f"Parsed repo data: {repo_data}")
                     if repo_data.get("last_analyzed"):
                         print(f"Repo {repo_data.get('name')} has been analyzed, adding to history.")
-                        history.append(repo_data)
+                        history.append({
+                            "id": repo_data.get("id"),
+                            "owner": repo_data.get("owner"),
+                            "name": repo_data.get("name"),
+                        })
                 except json.JSONDecodeError:
                     print(f"Could not decode JSON for key {key}")
         print(f"Found {len(history)} analyzed repositories.")

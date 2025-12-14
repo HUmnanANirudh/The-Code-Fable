@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import ResultsDisplay from "./components/ResultsDisplay";
 import { Spinner } from "./components/ui/spinner";
-import type { AnalysisResult } from "./types";
+import type { AnalysisResult, HistoryItem } from "./types";
 import ChatInput from "./components/ChatInput";
 import { Toaster, toast } from "sonner";
 import {
@@ -33,9 +33,9 @@ const API_URL = "http://localhost:8000/api/v1";
 function App() {
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState<AnalysisResult | null>(null);
-  const [history, setHistory] = useState<AnalysisResult[]>([]);
+  const [history, setHistory] = useState<HistoryItem[]>([]);
   const [showShareDialog, setShowShareDialog] = useState(false);
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
     const repoId = searchParams.get("repo_id");
@@ -57,7 +57,7 @@ function App() {
       };
       fetchResults();
     }
-  }, [searchParams]);
+  }, [searchParams, setSearchParams]);
 
   useEffect(() => {
     const fetchHistory = async () => {
@@ -117,7 +117,14 @@ function App() {
             }
             const resultsData = await resultsResponse.json();
             setResults(resultsData);
-            setHistory((prev) => [resultsData, ...prev]);
+            setHistory((prev) => [
+              {
+                id: resultsData.id,
+                owner: resultsData.owner,
+                name: resultsData.name,
+              },
+              ...prev,
+            ]);
             setLoading(false);
           } else if (statusData.status === "failed") {
             toast.error("Analysis job failed. Please try again later.");
@@ -135,7 +142,14 @@ function App() {
         setTimeout(pollStatus, 2000);
       } else {
         setResults(analyzeData.repo);
-        setHistory((prev) => [analyzeData.repo, ...prev]);
+        setHistory((prev) => [
+          {
+            id: analyzeData.repo.id,
+            owner: analyzeData.repo.owner,
+            name: analyzeData.repo.name,
+          },
+          ...prev,
+        ]);
         setLoading(false);
       }
     } catch (err: unknown) {
@@ -148,8 +162,22 @@ function App() {
     }
   };
 
-  const handleSelectRepo = (repo: AnalysisResult) => {
-    setResults(repo);
+  const handleSelectRepo = async (repo: HistoryItem) => {
+    setLoading(true);
+    setResults(null);
+    try {
+      const response = await fetch(`${API_URL}/results/${repo.id}`);
+      if (response.ok) {
+        const data = await response.json();
+        setResults(data);
+        setSearchParams({ repo_id: repo.id });
+      } else {
+        toast.error("Failed to fetch analysis results.");
+      }
+    } catch (error) {
+      toast.error("An unknown error occurred while fetching results.");
+    }
+    setLoading(false);
   };
 
   const handleShare = () => {
@@ -159,6 +187,7 @@ function App() {
   const handleCopyLink = () => {
     if (results) {
       const url = new URL(window.location.href);
+      url.search = "";
       url.searchParams.set("repo_id", results.id);
       navigator.clipboard.writeText(url.toString());
       toast.success("Link copied to clipboard!");

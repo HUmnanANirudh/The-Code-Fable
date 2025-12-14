@@ -53,7 +53,7 @@ npm run dev
 
 The application will be available at `http://localhost:5173`.
 
-### 3. Worker (Optional)
+### 3. Worker
 
 The backend uses a Celery worker to perform the analysis. To run the worker, you'll need to have Redis installed and running.
 

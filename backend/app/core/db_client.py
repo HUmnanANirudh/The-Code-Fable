@@ -1,7 +1,7 @@
 import uuid
 import json
 from datetime import datetime
-from typing import Dict, Any, Optional
+from typing import Dict, Any, Optional, List
 import redis
 
 # In-memory storage to mock the database
@@ -101,6 +101,15 @@ class DBClient:
             return repo_data
         return None
 
+    def get_repo_by_id(self, repo_id: str) -> Optional[Dict[str, Any]]:
+        """
+        Retrieves a repository by its ID.
+        """
+        repo_data = self.redis_client.get(f"repo_id:{repo_id}")
+        if repo_data:
+            return json.loads(repo_data)
+        return None
+
     def get_results_by_job_id(self, job_id: str) -> Optional[Dict[str, Any]]:
         """
         Retrieves the analysis results for a given job ID.
@@ -113,6 +122,28 @@ class DBClient:
                 if repo_data:
                     return json.loads(repo_data)
         return None
+
+    async def get_analysis_history(self) -> List[Dict[str, Any]]:
+        """
+        Retrieves a list of all analyzed repositories.
+        """
+        print("Fetching analysis history...")
+        history = []
+        for key in self.redis_client.scan_iter("repo_id:*"):
+            print(f"Processing key: {key}")
+            repo_data_str = self.redis_client.get(key)
+            print(f"Raw data from Redis: {repo_data_str}")
+            if repo_data_str:
+                try:
+                    repo_data = json.loads(repo_data_str)
+                    print(f"Parsed repo data: {repo_data}")
+                    if repo_data.get("last_analyzed"):
+                        print(f"Repo {repo_data.get('name')} has been analyzed, adding to history.")
+                        history.append(repo_data)
+                except json.JSONDecodeError:
+                    print(f"Could not decode JSON for key {key}")
+        print(f"Found {len(history)} analyzed repositories.")
+        return history
 
 # Instantiate a single client for the app to use
 db_client = DBClient(db_url="redis://localhost:6379/0")

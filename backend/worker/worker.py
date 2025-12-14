@@ -1,3 +1,4 @@
+from app.core.import_parser import ImportParser
 import os
 import sys
 from celery import Celery
@@ -36,23 +37,27 @@ def analyze_repository(self, owner: str, repo: str, repo_id: str):
         github_client = GitHubClient()
         file_tree = github_client.get_file_tree(owner, repo)
 
-        # 2. Calculate metrics
+        # 2. Parse imports to find dependencies
+        import_parser = ImportParser(github_client)
+        dependencies = import_parser.get_dependencies(owner, repo, file_tree)
+
+        # 3. Calculate metrics
         metrics_analyzer = Metrics(file_tree)
         churn = metrics_analyzer.calculate_churn()
         hotspots = metrics_analyzer.identify_hotspots(churn)
 
-        # 3. Build graph
-        graph_builder = GraphBuilder(file_tree, churn)
+        # 4. Build graph
+        graph_builder = GraphBuilder(file_tree, churn, dependencies)
         graph = graph_builder.build_synapse_graph()
         clusters = graph_builder.generate_clusters()
 
-        # 4. Generate narrative
+        # 5. Generate narrative
         llm_client = LLMClient(api_key=settings.LLM_API_KEY)
         summary = {"hotspots": hotspots, "clusters": clusters}
         narrative_generator = Narrative(summary, llm_client)
         story = narrative_generator.generate_story()
 
-        # 5. Store results in DB
+        # 6. Store results in DB
         analysis_data = {
             "job_id": self.request.id,
             "graph": graph,

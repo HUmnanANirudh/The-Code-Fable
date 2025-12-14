@@ -1,7 +1,7 @@
 from fastapi import FastAPI, APIRouter
 from starlette.middleware.cors import CORSMiddleware
 
-from app.api import health, analyze, status, results
+from app.api import health, analyze, status, results, history
 
 app = FastAPI()
 
@@ -19,6 +19,7 @@ api_v1_router.include_router(health.router)
 api_v1_router.include_router(analyze.router)
 api_v1_router.include_router(status.router)
 api_v1_router.include_router(results.router)
+api_v1_router.include_router(history.router)
 
 app.include_router(api_v1_router)
 

@@ -40,7 +40,7 @@ def analyze_repo(repo: str):
         # 5. Trigger the Celery task
         task = analyze_repository.apply_async(args=[owner, repo_name, existing_repo["id"]], task_id=str(job["id"]))
 
-        return {"message": "Analysis started", "job_id": job["id"]}
+        return {"message": "Analysis started", "job_id": job["id"], "repo_id": existing_repo["id"]}
 
     except requests.exceptions.RequestException as e:
         raise HTTPException(status_code=404, detail=f"Repository not found or GitHub API error: {e}")

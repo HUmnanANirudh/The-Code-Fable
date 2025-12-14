@@ -22,7 +22,7 @@ celery_app = Celery(
 
 from celery.exceptions import SoftTimeLimitExceeded
 
-@celery_app.task(bind=True, soft_time_limit=60, time_limit=70)
+@celery_app.task(bind=True, soft_time_limit=300, time_limit=310)
 def analyze_repository(self, owner: str, repo: str, repo_id: str):
     """
     A Celery task to analyze a GitHub repository.

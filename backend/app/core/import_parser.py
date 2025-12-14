@@ -19,29 +19,45 @@ class ImportParser:
             try:
                 content = self.github_client.get_file_content(owner, repo, file_path)
                 imports = self._parse_imports(file_path, content)
+                
                 for imp in imports:
-                    # Resolve relative imports
+                    candidates = []
+                    
                     if imp.startswith('.'):
                         base_dir = os.path.dirname(file_path)
-                        resolved_import = os.path.normpath(os.path.join(base_dir, imp))
+                        resolved = os.path.normpath(os.path.join(base_dir, imp))
+                        candidates.append(resolved)
+                    elif imp.startswith('@/'):
+                        # Try common alias mappings
+                        candidates.append(imp.replace('@/', 'src/'))
+                        candidates.append(imp.replace('@/', 'frontend/src/'))
+                        candidates.append(imp.replace('@/', 'backend/src/'))
                     else:
-                        resolved_import = imp
+                        candidates.append(imp)
                     
                     # Find the target file in the file tree
                     target_file = None
-                    possible_targets = [
-                        f"{resolved_import}.py",
-                        f"{resolved_import}.js",
-                        f"{resolved_import}.jsx",
-                        f"{resolved_import}.ts",
-                        f"{resolved_import}.tsx",
-                        f"{resolved_import}/__init__.py",
-                        resolved_import
-                    ]
                     
-                    for target in possible_targets:
-                        if target in file_set:
-                            target_file = target
+                    for candidate in candidates:
+                        possible_targets = [
+                            f"{candidate}.py",
+                            f"{candidate}.js",
+                            f"{candidate}.jsx",
+                            f"{candidate}.ts",
+                            f"{candidate}.tsx",
+                            f"{candidate}/__init__.py",
+                            f"{candidate}/index.js",
+                            f"{candidate}/index.ts",
+                            f"{candidate}/index.tsx",
+                            candidate # For direct matches (e.g., dir/file without extension)
+                        ]
+                        
+                        for target in possible_targets:
+                            if target in file_set:
+                                target_file = target
+                                break
+                        
+                        if target_file:
                             break
                     
                     if target_file:
@@ -74,9 +90,37 @@ class ImportParser:
             if match:
                 module = match.group(1) or match.group(3)
                 if module:
-                    # Handle multiple modules in one import statement, e.g., "import os, sys"
-                    modules = [m.strip().replace('.', '/') for m in module.split(',')]
-                    imports.extend(modules)
+                    # Handle multiple modules in one import statement
+                    # And handle relative imports correctly
+                    raw_modules = [m.strip() for m in module.split(',')]
+                    
+                    for m in raw_modules:
+                        if m.startswith('.'):
+                            # Count leading dots
+                            dots = 0
+                            for char in m:
+                                if char == '.':
+                                    dots += 1
+                                else:
+                                    break
+                            
+                            remainder = m[dots:]
+                            path_part = remainder.replace('.', '/')
+                            
+                            if dots == 1:
+                                normalized = f"./{path_part}"
+                            else:
+                                normalized = "../" * (dots - 1) + path_part
+                            
+                            # Clean up trailing slashes if import was just dots (e.g. "from . import")
+                            if normalized.endswith('/'):
+                                normalized = normalized.rstrip('/')
+                            
+                            imports.append(normalized)
+                        else:
+                            # Absolute import
+                            imports.append(m.replace('.', '/'))
+                            
         return imports
 
     def _parse_js_imports(self, content: str) -> List[str]:
@@ -89,5 +133,11 @@ class ImportParser:
         for match in re.finditer(regex, content):
             module = match.group(1) or match.group(2) or match.group(4)
             if module:
-                imports.append(module)
+                if module.startswith('@/'):
+                     # Basic alias handling: treat @/ as relative to a potential src directory
+                     # We can't know for sure without tsconfig, but we can return it as is
+                     # and let the resolver try to match it against 'src/' + remainder
+                     imports.append(module)
+                else:
+                    imports.append(module)
         return imports

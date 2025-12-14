@@ -67,4 +67,15 @@ class GitHubClient:
         data = response.json()
         return data.get("tree", [])
 
+    def get_file_content(self, owner: str, repo: str, file_path: str) -> str:
+        """
+        Fetches the raw content of a specific file from the repository.
+        """
+        url = f"{self.api_url}/repos/{owner}/{repo}/contents/{file_path}"
+        headers = self.headers.copy()
+        headers["Accept"] = "application/vnd.github.raw" # Request raw content
+        response = requests.get(url, headers=headers)
+        response.raise_for_status()
+        return response.text
+
 github_client = GitHubClient()

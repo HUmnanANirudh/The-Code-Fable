@@ -150,4 +150,5 @@ class DBClient:
         return history
 
 # Instantiate a single client for the app to use
-db_client = DBClient(db_url="redis://localhost:6379/0")
+from app.config import settings
+db_client = DBClient(db_url=settings.REDIS_URL)

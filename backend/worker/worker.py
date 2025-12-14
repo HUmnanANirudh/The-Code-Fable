@@ -14,11 +14,26 @@ from app.core.narrative import Narrative
 from app.core.llm_client import LLMClient
 from app.core.db_client import db_client
 
+import ssl
+
 celery_app = Celery(
     "worker",
     broker=settings.CELERY_BROKER_URL,
     backend=settings.CELERY_RESULT_BACKEND,
 )
+
+# Configure SSL for Render (or other providers using rediss://)
+if settings.CELERY_BROKER_URL.startswith("rediss://"):
+    ssl_conf = {
+        "ssl_cert_reqs": ssl.CERT_NONE,
+        "ssl_ca_certs": None,
+        "ssl_certfile": None,
+        "ssl_keyfile": None,
+    }
+    celery_app.conf.update(
+        broker_use_ssl=ssl_conf,
+        redis_backend_use_ssl=ssl_conf,
+    )
 
 from celery.exceptions import SoftTimeLimitExceeded
 

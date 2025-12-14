@@ -15,7 +15,7 @@ import {
   AlertDialogTitle,
 } from "./components/ui/alert-dialog";
 import { Button } from "./components/ui/button";
-import { Copy, Share2 } from "lucide-react";
+import { Copy, Share2, Plus } from "lucide-react";
 import { Input } from "./components/ui/input";
 import {
   SidebarProvider,
@@ -26,7 +26,11 @@ import {
   SidebarMenuItem,
   SidebarMenuButton,
   SidebarInset,
+  SidebarTrigger,
+  SidebarRail,
 } from "./components/ui/sidebar";
+import { AnimatePresence, motion } from "motion/react";
+import { ThemeToggle } from "./components/ThemeToggle";
 
 const API_URL = "http://localhost:8000/api/v1";
 
@@ -172,6 +176,11 @@ function App() {
     setLoading(false);
   };
 
+  const handleNewChat = () => {
+    setResults(null);
+    setSearchParams({});
+  };
+
   const handleShare = () => {
     setShowShareDialog(true);
   };
@@ -188,68 +197,122 @@ function App() {
 
   return (
     <SidebarProvider>
-      <div className="flex h-screen bg-background">
+      <div className="flex h-screen bg-background w-full transition-colors duration-300">
         <Toaster />
-        <Sidebar>
-          <SidebarHeader>
-            <h2 className="text-lg font-semibold">Analysis History</h2>
+        <Sidebar collapsible="icon" className="border-r border-border/20 bg-muted/10">
+          <SidebarHeader className="p-4 bg-transparent border-b border-border/10 flex flex-col gap-4 group-data-[collapsible=icon]:items-center group-data-[collapsible=icon]:p-2">
+             <Button 
+              onClick={handleNewChat} 
+              className="w-full justify-start gap-2 bg-primary/10 text-primary hover:bg-primary/20 hover:text-primary shadow-sm border border-primary/20 group-data-[collapsible=icon]:w-10 group-data-[collapsible=icon]:h-10 group-data-[collapsible=icon]:p-0 group-data-[collapsible=icon]:justify-center"
+              variant="outline"
+              size="default"
+             >
+                <Plus className="w-5 h-5 shrink-0" />
+                <span className="font-medium group-data-[collapsible=icon]:hidden truncate">New Chat</span>
+             </Button>
+
+            <div className="flex items-center justify-between w-full group-data-[collapsible=icon]:hidden">
+               <h2 className="text-xs font-bold text-muted-foreground/50 uppercase tracking-wider">
+                 History
+               </h2>
+            </div>
           </SidebarHeader>
-          <SidebarContent>
+          <SidebarContent className="px-2 pt-2">
             <SidebarMenu>
               {history.map((repo) => (
                 <SidebarMenuItem key={repo.id}>
-                  <SidebarMenuButton onClick={() => handleSelectRepo(repo)}>
-                    {repo.owner}/{repo.name}
+                  <SidebarMenuButton 
+                     onClick={() => handleSelectRepo(repo)}
+                     className="hover:bg-accent/10 hover:text-accent transition-colors data-[active=true]:bg-accent/20 data-[active=true]:text-accent text-muted-foreground font-medium group-data-[collapsible=icon]:justify-center"
+                     tooltip={`${repo.owner}/${repo.name}`}
+                  >
+                    <span className="truncate">{repo.owner}/{repo.name}</span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
             </SidebarMenu>
           </SidebarContent>
+          <SidebarRail />
         </Sidebar>
-        <SidebarInset>
-          <main className="flex flex-col h-full">
-            <div className="flex-1 p-4 overflow-auto">
-              {!results && !loading && (
-                <div className="flex flex-col items-center justify-center h-full">
-                  <h1 className="text-2xl font-semibold">The Code Fable</h1>
-                  <p className="text-muted-foreground">
-                    Enter a GitHub repository URL to generate its fable.
-                  </p>
-                </div>
-              )}
-              {loading && (
-                <div className="flex flex-col items-center justify-center h-full">
-                  <Spinner />
-                  <p className="mt-2">
-                    Analyzing... Thinking... Digesting the repo...
-                  </p>
-                </div>
-              )}
-              {results && (
-                <>
-                  <Button
-                    onClick={handleShare}
-                    className="absolute top-4 right-4"
-                  >
-                    <Share2 className="mr-2 h-4 w-4" />
-                    Share
-                  </Button>
-                  <ResultsDisplay data={results} />
-                </>
-              )}
+        <SidebarInset className="bg-background transition-all duration-300">
+          <main className="flex flex-col h-full relative overflow-hidden">
+            <header className="absolute top-4 left-4 z-50 flex items-center gap-2">
+              <SidebarTrigger className="text-muted-foreground hover:text-foreground transition-colors" />
+            </header>
+            
+            <div className="absolute top-4 right-4 z-50">
+               <ThemeToggle />
             </div>
-            <ChatInput onAnalysis={handleAnalysis} loading={loading} />
+
+            <div className="flex-1 overflow-auto w-full relative">
+              <AnimatePresence mode="wait">
+                {!results && !loading && (
+                   <div className="absolute inset-0 flex flex-col items-center justify-center">
+                      <ChatInput onAnalysis={handleAnalysis} loading={loading} />
+                   </div>
+                )}
+
+                {loading && (
+                  <motion.div 
+                    key="loading"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="flex flex-col items-center justify-center h-full space-y-6"
+                  >
+                    <div className="relative">
+                      <div className="absolute inset-0 bg-primary/30 blur-2xl rounded-full animate-pulse" />
+                      <div className="absolute inset-0 bg-accent/20 blur-xl rounded-full animate-pulse delay-75" />
+                      <Spinner className="w-16 h-16 text-primary relative z-10" />
+                    </div>
+                    <p className="text-xl text-foreground/80 font-medium tracking-tight animate-pulse">
+                      Weaving your code's fable...
+                    </p>
+                  </motion.div>
+                )}
+
+                {results && (
+                  <motion.div
+                    key="results"
+                    initial={{ opacity: 0, scale: 0.98 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="container max-w-[1600px] mx-auto py-8 px-4 pb-12"
+                  >
+                    <div className="flex justify-between items-center mb-6 pl-10">
+                      <h2 className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent hidden md:block">
+                        Analysis Results
+                      </h2>
+                      <div className="space-x-2 px-8">
+                         <span className="text-sm text-muted-foreground mr-4 font-mono">{results.owner}/{results.name}</span>
+                        <Button
+                            onClick={handleShare}
+                            variant="outline"
+                            size="sm"
+                            className="text-foreground hover:bg-primary/10 hover:text-primary transition-colors border-primary/20"
+                        >
+                            <Share2 className="mr-2 h-4 w-4" />
+                            Share
+                        </Button>
+                      </div>
+                    </div>
+                    <ResultsDisplay data={results} />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+            
           </main>
         </SidebarInset>
-        <AlertDialog key={results?.id} open={showShareDialog} onOpenChange={setShowShareDialog}>
-          <AlertDialogContent>
+        
+        <AlertDialog open={showShareDialog} onOpenChange={setShowShareDialog}>
+          <AlertDialogContent className="bg-card border-primary/10">
             <AlertDialogHeader>
-              <AlertDialogTitle>Share Analysis</AlertDialogTitle>
+              <AlertDialogTitle>Share The Fable</AlertDialogTitle>
               <AlertDialogDescription>
-                Share this analysis of {results?.owner}/{results?.name} with others via a link.
+                Share this analysis of <span className="text-foreground font-medium">{results?.owner}/{results?.name}</span> with the world.
               </AlertDialogDescription>
             </AlertDialogHeader>
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-2 pt-4">
               <Input
                 value={
                   results
@@ -257,13 +320,14 @@ function App() {
                     : ""
                 }
                 readOnly
+                className="bg-muted/50 border-primary/10 focus-visible:ring-primary/20"
               />
-              <Button onClick={handleCopyLink} size="sm">
+              <Button onClick={handleCopyLink} size="sm" className="shrink-0 bg-primary/10 text-primary hover:bg-primary/20">
                 <Copy className="h-4 w-4" />
               </Button>
             </div>
             <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogCancel>Close</AlertDialogCancel>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>

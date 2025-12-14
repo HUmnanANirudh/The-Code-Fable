@@ -63,9 +63,9 @@ class GraphBuilder:
 
         return {"nodes": self.nodes, "links": self.edges}
 
-    def generate_clusters(self) -> Dict[str, List[str]]:
+    def generate_clusters(self, min_size: int = 3, max_depth: int = 3) -> Dict[str, List[str]]:
         """
-        Generates clusters of files based on their parent directory.
+        Generates clusters of files based on their parent directory, with filtering.
         """
         for node in self.nodes:
             dir_name = os.path.dirname(node['id'])
@@ -73,4 +73,10 @@ class GraphBuilder:
                 self.clusters[dir_name] = []
             self.clusters[dir_name].append(node['id'])
         
-        return self.clusters
+        filtered_clusters = {}
+        for dir_name, files in self.clusters.items():
+            depth = len(dir_name.split('/'))
+            if len(files) >= min_size and depth <= max_depth:
+                filtered_clusters[dir_name] = files
+        
+        return filtered_clusters

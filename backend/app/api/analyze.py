@@ -29,7 +29,7 @@ def analyze_repo(repo: str):
         # 3. Check if the repository has been analyzed before
         existing_repo = db_client.get_repo_by_name(owner, repo_name)
         if existing_repo and existing_repo.get("last_analyzed"):
-            return {"message": "Repository already analyzed", "repo": existing_repo}
+            return existing_repo
 
         # 4. If not, create a new repository entry and analysis job
         if not existing_repo:

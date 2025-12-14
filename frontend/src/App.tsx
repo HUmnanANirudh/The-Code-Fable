@@ -57,7 +57,7 @@ function App() {
       };
       fetchResults();
     }
-  }, [searchParams, setSearchParams]);
+  }, [searchParams]);
 
   useEffect(() => {
     const fetchHistory = async () => {
@@ -117,14 +117,6 @@ function App() {
             }
             const resultsData = await resultsResponse.json();
             setResults(resultsData);
-            setHistory((prev) => [
-              {
-                id: resultsData.id,
-                owner: resultsData.owner,
-                name: resultsData.name,
-              },
-              ...prev,
-            ]);
             setLoading(false);
           } else if (statusData.status === "failed") {
             toast.error("Analysis job failed. Please try again later.");
@@ -141,12 +133,12 @@ function App() {
 
         setTimeout(pollStatus, 2000);
       } else {
-        setResults(analyzeData.repo);
+        setResults(analyzeData);
         setHistory((prev) => [
           {
-            id: analyzeData.repo.id,
-            owner: analyzeData.repo.owner,
-            name: analyzeData.repo.name,
+            id: analyzeData.id,
+            owner: analyzeData.owner,
+            name: analyzeData.name,
           },
           ...prev,
         ]);

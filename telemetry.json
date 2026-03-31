@@ -6,519 +6,519 @@
   "graph": {
     "nodes": [
       {
-        "id": "telemetry.json",
-        "group": "",
-        "size": 270
-      },
-      {
-        "id": "backend/app/core/github_client.py",
-        "group": "backend/app/core",
-        "size": 436
-      },
-      {
-        "id": "frontend/src/components/ui/input-group.tsx",
-        "group": "frontend/src/components/ui",
-        "size": 206
-      },
-      {
-        "id": "frontend/src/components/ui/spinner.tsx",
-        "group": "frontend/src/components/ui",
-        "size": 17
-      },
-      {
-        "id": "backend/app/core/narrative.py",
-        "group": "backend/app/core",
-        "size": 411
-      },
-      {
-        "id": "frontend/src/components/ui/navigation-menu.tsx",
-        "group": "frontend/src/components/ui",
-        "size": 308
-      },
-      {
-        "id": "render.yaml",
-        "group": "",
-        "size": 444
-      },
-      {
-        "id": "frontend/src/components/ui/accordion.tsx",
-        "group": "frontend/src/components/ui",
-        "size": 53
-      },
-      {
-        "id": "frontend/index.html",
-        "group": "frontend",
-        "size": 96
-      },
-      {
-        "id": "docker-compose.yml",
-        "group": "",
-        "size": 170
-      },
-      {
-        "id": "frontend/src/components/ui/switch.tsx",
-        "group": "frontend/src/components/ui",
-        "size": 239
-      },
-      {
-        "id": "frontend/src/components/ui/input.tsx",
-        "group": "frontend/src/components/ui",
-        "size": 225
-      },
-      {
-        "id": "frontend/components.json",
-        "group": "frontend",
-        "size": 33
-      },
-      {
-        "id": "frontend/src/components/ui/collapsible.tsx",
-        "group": "frontend/src/components/ui",
-        "size": 122
-      },
-      {
-        "id": "frontend/src/components/ui/sidebar.tsx",
-        "group": "frontend/src/components/ui",
-        "size": 249
-      },
-      {
-        "id": "frontend/README.md",
-        "group": "frontend",
-        "size": 217
-      },
-      {
-        "id": "frontend/src/components/ui/card.tsx",
-        "group": "frontend/src/components/ui",
-        "size": 28
-      },
-      {
-        "id": "backend/app/api/__init__.py",
-        "group": "backend/app/api",
-        "size": 100
-      },
-      {
-        "id": "frontend/src/components/ChatInput.tsx",
-        "group": "frontend/src/components",
-        "size": 380
-      },
-      {
-        "id": "frontend/src/components/ui/avatar.tsx",
-        "group": "frontend/src/components/ui",
-        "size": 290
-      },
-      {
-        "id": "frontend/src/components/ui/form.tsx",
-        "group": "frontend/src/components/ui",
-        "size": 394
-      },
-      {
-        "id": "frontend/tsconfig.json",
-        "group": "frontend",
-        "size": 406
-      },
-      {
-        "id": "frontend/src/components/ui/drawer.tsx",
-        "group": "frontend/src/components/ui",
-        "size": 317
-      },
-      {
-        "id": ".dockerignore",
-        "group": "",
-        "size": 98
-      },
-      {
-        "id": "frontend/src/components/ThemeToggle.tsx",
-        "group": "frontend/src/components",
-        "size": 388
-      },
-      {
-        "id": "frontend/tsconfig.app.json",
-        "group": "frontend",
-        "size": 174
-      },
-      {
-        "id": "frontend/tsconfig.node.json",
-        "group": "frontend",
-        "size": 255
-      },
-      {
-        "id": "frontend/src/components/ui/checkbox.tsx",
-        "group": "frontend/src/components/ui",
-        "size": 283
-      },
-      {
-        "id": "frontend/src/components/ui/table.tsx",
-        "group": "frontend/src/components/ui",
-        "size": 196
-      },
-      {
         "id": "frontend/src/components/ui/textarea.tsx",
-        "group": "frontend/src/components/ui",
-        "size": 63
-      },
-      {
-        "id": "frontend/src/components/ui/toggle.tsx",
-        "group": "frontend/src/components/ui",
-        "size": 234
-      },
-      {
-        "id": "backend/app/api/history.py",
-        "group": "backend/app/api",
-        "size": 110
-      },
-      {
-        "id": "frontend/src/components/ui/command.tsx",
-        "group": "frontend/src/components/ui",
-        "size": 164
-      },
-      {
-        "id": "frontend/src/components/ui/pagination.tsx",
-        "group": "frontend/src/components/ui",
-        "size": 385
-      },
-      {
-        "id": "frontend/src/components/ui/calendar.tsx",
-        "group": "frontend/src/components/ui",
-        "size": 337
-      },
-      {
-        "id": "frontend/src/App.tsx",
-        "group": "frontend/src",
-        "size": 364
-      },
-      {
-        "id": "frontend/src/components/ui/sonner.tsx",
-        "group": "frontend/src/components/ui",
-        "size": 259
-      },
-      {
-        "id": "backend/app/config.py",
-        "group": "backend/app",
-        "size": 104
-      },
-      {
-        "id": "frontend/src/components/GraphDisplay.tsx",
-        "group": "frontend/src/components",
-        "size": 122
-      },
-      {
-        "id": "frontend/src/components/ui/radio-group.tsx",
-        "group": "frontend/src/components/ui",
-        "size": 286
-      },
-      {
-        "id": "frontend/src/components/ui/dropdown-menu.tsx",
-        "group": "frontend/src/components/ui",
-        "size": 378
-      },
-      {
-        "id": "backend/app/core/metrics.py",
-        "group": "backend/app/core",
-        "size": 427
-      },
-      {
-        "id": "frontend/src/components/ui/alert.tsx",
-        "group": "frontend/src/components/ui",
-        "size": 490
-      },
-      {
-        "id": "frontend/src/components/ui/empty.tsx",
-        "group": "frontend/src/components/ui",
-        "size": 289
-      },
-      {
-        "id": "frontend/src/components/ui/menubar.tsx",
-        "group": "frontend/src/components/ui",
-        "size": 43
-      },
-      {
-        "id": "frontend/src/components/ui/skeleton.tsx",
-        "group": "frontend/src/components/ui",
-        "size": 334
-      },
-      {
-        "id": "frontend/src/components/ui/badge.tsx",
-        "group": "frontend/src/components/ui",
-        "size": 454
-      },
-      {
-        "id": "frontend/src/components/ui/popover.tsx",
-        "group": "frontend/src/components/ui",
-        "size": 462
-      },
-      {
-        "id": "frontend/src/index.css",
-        "group": "frontend/src",
-        "size": 449
-      },
-      {
-        "id": "backend/worker/worker.py",
-        "group": "backend/worker",
-        "size": 356
-      },
-      {
-        "id": "frontend/src/components/ui/hover-card.tsx",
-        "group": "frontend/src/components/ui",
-        "size": 46
-      },
-      {
-        "id": "frontend/src/components/ui/resizable.tsx",
-        "group": "frontend/src/components/ui",
-        "size": 264
-      },
-      {
-        "id": "backend/app/api/results.py",
-        "group": "backend/app/api",
-        "size": 38
-      },
-      {
-        "id": "frontend/src/components/ui/aspect-ratio.tsx",
-        "group": "frontend/src/components/ui",
-        "size": 182
-      },
-      {
-        "id": "frontend/src/components/ui/select.tsx",
-        "group": "frontend/src/components/ui",
-        "size": 406
-      },
-      {
-        "id": "frontend/src/components/ui/tabs.tsx",
-        "group": "frontend/src/components/ui",
-        "size": 285
-      },
-      {
-        "id": "frontend/src/components/ui/context-menu.tsx",
-        "group": "frontend/src/components/ui",
-        "size": 197
-      },
-      {
-        "id": "frontend/src/components/ui/item.tsx",
-        "group": "frontend/src/components/ui",
-        "size": 60
-      },
-      {
-        "id": "backend/app/core/db_client.py",
-        "group": "backend/app/core",
-        "size": 277
-      },
-      {
-        "id": "frontend/src/components/ui/sheet.tsx",
-        "group": "frontend/src/components/ui",
-        "size": 125
-      },
-      {
-        "id": "frontend/src/components/ui/kbd.tsx",
-        "group": "frontend/src/components/ui",
-        "size": 41
-      },
-      {
-        "id": "frontend/src/types.ts",
-        "group": "frontend/src",
-        "size": 423
-      },
-      {
-        "id": "backend/app/utils/__init__.py",
-        "group": "backend/app/utils",
-        "size": 232
-      },
-      {
-        "id": "frontend/src/components/ui/chart.tsx",
-        "group": "frontend/src/components/ui",
-        "size": 142
-      },
-      {
-        "id": "Dockerfile.backend",
-        "group": "",
-        "size": 93
-      },
-      {
-        "id": "frontend/src/components/ui/field.tsx",
-        "group": "frontend/src/components/ui",
-        "size": 39
-      },
-      {
-        "id": "Dockerfile.frontend",
-        "group": "",
-        "size": 66
-      },
-      {
-        "id": "frontend/src/components/ui/alert-dialog.tsx",
-        "group": "frontend/src/components/ui",
-        "size": 413
-      },
-      {
-        "id": "frontend/src/components/ui/animated-container.tsx",
-        "group": "frontend/src/components/ui",
-        "size": 189
-      },
-      {
-        "id": "backend/app/api/analyze.py",
-        "group": "backend/app/api",
-        "size": 254
-      },
-      {
-        "id": "scripts/extract_telemetry.py",
-        "group": "scripts",
-        "size": 102
-      },
-      {
-        "id": "backend/app/core/import_parser.py",
-        "group": "backend/app/core",
-        "size": 289
-      },
-      {
-        "id": "frontend/src/components/ResultsDisplay.tsx",
-        "group": "frontend/src/components",
-        "size": 444
-      },
-      {
-        "id": "frontend/src/components/ui/input-otp.tsx",
-        "group": "frontend/src/components/ui",
-        "size": 85
-      },
-      {
-        "id": ".github/workflows/telemetry.yml",
-        "group": ".github/workflows",
-        "size": 197
-      },
-      {
-        "id": "frontend/src/components/ui/toggle-group.tsx",
-        "group": "frontend/src/components/ui",
-        "size": 116
-      },
-      {
-        "id": "frontend/public/vite.svg",
-        "group": "frontend/public",
-        "size": 168
-      },
-      {
-        "id": "backend/app/api/status.py",
-        "group": "backend/app/api",
-        "size": 315
-      },
-      {
-        "id": "backend/app/core/llm_client.py",
-        "group": "backend/app/core",
-        "size": 102
-      },
-      {
-        "id": "frontend/src/components/ui/button.tsx",
-        "group": "frontend/src/components/ui",
-        "size": 128
-      },
-      {
-        "id": "frontend/src/components/ui/breadcrumb.tsx",
-        "group": "frontend/src/components/ui",
-        "size": 358
-      },
-      {
-        "id": "backend/app/core/__init__.py",
-        "group": "backend/app/core",
-        "size": 237
-      },
-      {
-        "id": "frontend/src/components/ui/separator.tsx",
-        "group": "frontend/src/components/ui",
-        "size": 44
-      },
-      {
-        "id": "frontend/src/main.tsx",
-        "group": "frontend/src",
-        "size": 157
-      },
-      {
-        "id": "backend/app/main.py",
-        "group": "backend/app",
-        "size": 72
-      },
-      {
-        "id": "frontend/src/components/ui/label.tsx",
-        "group": "frontend/src/components/ui",
-        "size": 421
-      },
-      {
-        "id": "backend/app/api/health.py",
-        "group": "backend/app/api",
-        "size": 397
-      },
-      {
-        "id": "frontend/src/components/ui/scroll-area.tsx",
-        "group": "frontend/src/components/ui",
-        "size": 93
-      },
-      {
-        "id": "frontend/src/components/ui/progress.tsx",
-        "group": "frontend/src/components/ui",
-        "size": 125
-      },
-      {
-        "id": "frontend/eslint.config.js",
-        "group": "frontend",
-        "size": 99
-      },
-      {
-        "id": "frontend/src/components/ui/dialog.tsx",
-        "group": "frontend/src/components/ui",
-        "size": 138
-      },
-      {
-        "id": "backend/app/core/graph_builder.py",
-        "group": "backend/app/core",
-        "size": 222
-      },
-      {
-        "id": "frontend/src/hooks/use-mobile.ts",
-        "group": "frontend/src/hooks",
-        "size": 414
-      },
-      {
-        "id": "Dockerfile.worker",
-        "group": "",
-        "size": 252
-      },
-      {
-        "id": "frontend/src/lib/utils.ts",
-        "group": "frontend/src/lib",
-        "size": 134
-      },
-      {
-        "id": "frontend/src/components/ui/button-group.tsx",
-        "group": "frontend/src/components/ui",
-        "size": 178
-      },
-      {
-        "id": "frontend/src/components/ui/tooltip.tsx",
-        "group": "frontend/src/components/ui",
-        "size": 80
-      },
-      {
-        "id": "frontend/src/components/ui/carousel.tsx",
-        "group": "frontend/src/components/ui",
-        "size": 469
-      },
-      {
-        "id": "frontend/src/components/ui/slider.tsx",
         "group": "frontend/src/components/ui",
         "size": 137
       },
       {
+        "id": "backend/app/api/health.py",
+        "group": "backend/app/api",
+        "size": 475
+      },
+      {
+        "id": "frontend/src/components/ui/field.tsx",
+        "group": "frontend/src/components/ui",
+        "size": 116
+      },
+      {
+        "id": "render.yaml",
+        "group": "",
+        "size": 173
+      },
+      {
+        "id": "frontend/src/components/ui/sonner.tsx",
+        "group": "frontend/src/components/ui",
+        "size": 178
+      },
+      {
+        "id": "frontend/src/components/ui/empty.tsx",
+        "group": "frontend/src/components/ui",
+        "size": 150
+      },
+      {
+        "id": "frontend/src/components/ui/collapsible.tsx",
+        "group": "frontend/src/components/ui",
+        "size": 55
+      },
+      {
+        "id": "frontend/eslint.config.js",
+        "group": "frontend",
+        "size": 31
+      },
+      {
+        "id": "frontend/src/lib/utils.ts",
+        "group": "frontend/src/lib",
+        "size": 357
+      },
+      {
+        "id": "frontend/src/components/ui/progress.tsx",
+        "group": "frontend/src/components/ui",
+        "size": 134
+      },
+      {
+        "id": "frontend/README.md",
+        "group": "frontend",
+        "size": 335
+      },
+      {
+        "id": "frontend/src/components/ui/form.tsx",
+        "group": "frontend/src/components/ui",
+        "size": 463
+      },
+      {
+        "id": "frontend/src/components/ChatInput.tsx",
+        "group": "frontend/src/components",
+        "size": 120
+      },
+      {
+        "id": "frontend/src/components/ui/hover-card.tsx",
+        "group": "frontend/src/components/ui",
+        "size": 411
+      },
+      {
+        "id": ".dockerignore",
+        "group": "",
+        "size": 329
+      },
+      {
+        "id": "frontend/src/components/ui/label.tsx",
+        "group": "frontend/src/components/ui",
+        "size": 221
+      },
+      {
+        "id": "telemetry.json",
+        "group": "",
+        "size": 147
+      },
+      {
+        "id": "frontend/src/components/ui/card.tsx",
+        "group": "frontend/src/components/ui",
+        "size": 386
+      },
+      {
+        "id": "frontend/src/components/ui/command.tsx",
+        "group": "frontend/src/components/ui",
+        "size": 112
+      },
+      {
+        "id": "backend/app/api/status.py",
+        "group": "backend/app/api",
+        "size": 371
+      },
+      {
+        "id": "frontend/src/components/ui/breadcrumb.tsx",
+        "group": "frontend/src/components/ui",
+        "size": 399
+      },
+      {
+        "id": "docker-compose.yml",
+        "group": "",
+        "size": 400
+      },
+      {
+        "id": "frontend/src/components/ResultsDisplay.tsx",
+        "group": "frontend/src/components",
+        "size": 72
+      },
+      {
         "id": "frontend/vite.config.ts",
         "group": "frontend",
-        "size": 365
+        "size": 431
+      },
+      {
+        "id": "frontend/src/components/ui/accordion.tsx",
+        "group": "frontend/src/components/ui",
+        "size": 106
+      },
+      {
+        "id": "frontend/src/components/ThemeToggle.tsx",
+        "group": "frontend/src/components",
+        "size": 235
+      },
+      {
+        "id": "frontend/src/components/ui/menubar.tsx",
+        "group": "frontend/src/components/ui",
+        "size": 11
       },
       {
         "id": "backend/app/__init__.py",
         "group": "backend/app",
-        "size": 162
+        "size": 430
       },
       {
-        "id": "backend/worker/__init__.py",
-        "group": "backend/worker",
-        "size": 434
+        "id": "frontend/src/components/ui/context-menu.tsx",
+        "group": "frontend/src/components/ui",
+        "size": 342
+      },
+      {
+        "id": "frontend/src/components/ui/input-group.tsx",
+        "group": "frontend/src/components/ui",
+        "size": 316
+      },
+      {
+        "id": "frontend/src/components/ui/input.tsx",
+        "group": "frontend/src/components/ui",
+        "size": 490
+      },
+      {
+        "id": "frontend/src/components/ui/chart.tsx",
+        "group": "frontend/src/components/ui",
+        "size": 446
+      },
+      {
+        "id": "frontend/src/components/ui/pagination.tsx",
+        "group": "frontend/src/components/ui",
+        "size": 267
+      },
+      {
+        "id": "frontend/src/components/ui/alert-dialog.tsx",
+        "group": "frontend/src/components/ui",
+        "size": 30
+      },
+      {
+        "id": "backend/app/core/graph_builder.py",
+        "group": "backend/app/core",
+        "size": 187
+      },
+      {
+        "id": "frontend/src/main.tsx",
+        "group": "frontend/src",
+        "size": 301
+      },
+      {
+        "id": "frontend/src/components/ui/separator.tsx",
+        "group": "frontend/src/components/ui",
+        "size": 384
+      },
+      {
+        "id": "backend/app/api/history.py",
+        "group": "backend/app/api",
+        "size": 368
       },
       {
         "id": "README.md",
         "group": "",
-        "size": 315
+        "size": 134
+      },
+      {
+        "id": "frontend/src/components/ui/alert.tsx",
+        "group": "frontend/src/components/ui",
+        "size": 86
+      },
+      {
+        "id": "frontend/src/components/ui/dropdown-menu.tsx",
+        "group": "frontend/src/components/ui",
+        "size": 451
+      },
+      {
+        "id": "frontend/src/components/ui/toggle-group.tsx",
+        "group": "frontend/src/components/ui",
+        "size": 389
+      },
+      {
+        "id": "frontend/src/components/ui/drawer.tsx",
+        "group": "frontend/src/components/ui",
+        "size": 482
+      },
+      {
+        "id": "frontend/src/components/ui/kbd.tsx",
+        "group": "frontend/src/components/ui",
+        "size": 272
+      },
+      {
+        "id": "Dockerfile.backend",
+        "group": "",
+        "size": 394
+      },
+      {
+        "id": "frontend/src/App.tsx",
+        "group": "frontend/src",
+        "size": 17
+      },
+      {
+        "id": "frontend/src/types.ts",
+        "group": "frontend/src",
+        "size": 437
+      },
+      {
+        "id": "frontend/public/vite.svg",
+        "group": "frontend/public",
+        "size": 391
+      },
+      {
+        "id": "frontend/src/components/ui/switch.tsx",
+        "group": "frontend/src/components/ui",
+        "size": 312
+      },
+      {
+        "id": "backend/app/api/__init__.py",
+        "group": "backend/app/api",
+        "size": 118
+      },
+      {
+        "id": "frontend/src/hooks/use-mobile.ts",
+        "group": "frontend/src/hooks",
+        "size": 15
+      },
+      {
+        "id": "backend/app/api/results.py",
+        "group": "backend/app/api",
+        "size": 471
+      },
+      {
+        "id": "backend/app/utils/__init__.py",
+        "group": "backend/app/utils",
+        "size": 484
+      },
+      {
+        "id": "frontend/src/components/ui/slider.tsx",
+        "group": "frontend/src/components/ui",
+        "size": 106
+      },
+      {
+        "id": "frontend/src/components/ui/sheet.tsx",
+        "group": "frontend/src/components/ui",
+        "size": 130
+      },
+      {
+        "id": "frontend/components.json",
+        "group": "frontend",
+        "size": 489
+      },
+      {
+        "id": "frontend/src/components/ui/aspect-ratio.tsx",
+        "group": "frontend/src/components/ui",
+        "size": 374
+      },
+      {
+        "id": "frontend/src/components/ui/avatar.tsx",
+        "group": "frontend/src/components/ui",
+        "size": 392
+      },
+      {
+        "id": "frontend/src/components/ui/tooltip.tsx",
+        "group": "frontend/src/components/ui",
+        "size": 482
+      },
+      {
+        "id": "frontend/src/components/ui/skeleton.tsx",
+        "group": "frontend/src/components/ui",
+        "size": 286
+      },
+      {
+        "id": "backend/app/core/llm_client.py",
+        "group": "backend/app/core",
+        "size": 469
+      },
+      {
+        "id": "Dockerfile.worker",
+        "group": "",
+        "size": 395
+      },
+      {
+        "id": "backend/app/api/analyze.py",
+        "group": "backend/app/api",
+        "size": 44
+      },
+      {
+        "id": "frontend/src/components/ui/radio-group.tsx",
+        "group": "frontend/src/components/ui",
+        "size": 497
+      },
+      {
+        "id": "frontend/src/components/ui/carousel.tsx",
+        "group": "frontend/src/components/ui",
+        "size": 158
+      },
+      {
+        "id": "frontend/src/components/ui/select.tsx",
+        "group": "frontend/src/components/ui",
+        "size": 479
+      },
+      {
+        "id": "frontend/src/components/ui/scroll-area.tsx",
+        "group": "frontend/src/components/ui",
+        "size": 302
+      },
+      {
+        "id": "frontend/index.html",
+        "group": "frontend",
+        "size": 242
+      },
+      {
+        "id": "frontend/src/components/ui/checkbox.tsx",
+        "group": "frontend/src/components/ui",
+        "size": 382
+      },
+      {
+        "id": "backend/app/core/import_parser.py",
+        "group": "backend/app/core",
+        "size": 389
+      },
+      {
+        "id": "frontend/src/components/ui/table.tsx",
+        "group": "frontend/src/components/ui",
+        "size": 226
+      },
+      {
+        "id": "frontend/tsconfig.app.json",
+        "group": "frontend",
+        "size": 367
+      },
+      {
+        "id": "frontend/src/components/ui/resizable.tsx",
+        "group": "frontend/src/components/ui",
+        "size": 64
+      },
+      {
+        "id": "backend/app/core/__init__.py",
+        "group": "backend/app/core",
+        "size": 222
+      },
+      {
+        "id": "frontend/src/components/ui/sidebar.tsx",
+        "group": "frontend/src/components/ui",
+        "size": 423
+      },
+      {
+        "id": "frontend/src/components/ui/button-group.tsx",
+        "group": "frontend/src/components/ui",
+        "size": 75
+      },
+      {
+        "id": "frontend/src/components/GraphDisplay.tsx",
+        "group": "frontend/src/components",
+        "size": 39
+      },
+      {
+        "id": "scripts/extract_telemetry.py",
+        "group": "scripts",
+        "size": 50
+      },
+      {
+        "id": "backend/app/core/github_client.py",
+        "group": "backend/app/core",
+        "size": 96
+      },
+      {
+        "id": "frontend/src/components/ui/button.tsx",
+        "group": "frontend/src/components/ui",
+        "size": 290
+      },
+      {
+        "id": "frontend/src/components/ui/popover.tsx",
+        "group": "frontend/src/components/ui",
+        "size": 148
+      },
+      {
+        "id": "backend/app/core/metrics.py",
+        "group": "backend/app/core",
+        "size": 362
+      },
+      {
+        "id": "frontend/src/components/ui/dialog.tsx",
+        "group": "frontend/src/components/ui",
+        "size": 241
+      },
+      {
+        "id": "frontend/src/components/ui/input-otp.tsx",
+        "group": "frontend/src/components/ui",
+        "size": 309
+      },
+      {
+        "id": "frontend/src/components/ui/tabs.tsx",
+        "group": "frontend/src/components/ui",
+        "size": 418
+      },
+      {
+        "id": "frontend/src/components/ui/spinner.tsx",
+        "group": "frontend/src/components/ui",
+        "size": 354
+      },
+      {
+        "id": "frontend/src/components/ui/toggle.tsx",
+        "group": "frontend/src/components/ui",
+        "size": 28
+      },
+      {
+        "id": "frontend/src/components/ui/calendar.tsx",
+        "group": "frontend/src/components/ui",
+        "size": 151
+      },
+      {
+        "id": "frontend/src/components/ui/item.tsx",
+        "group": "frontend/src/components/ui",
+        "size": 274
+      },
+      {
+        "id": "backend/worker/worker.py",
+        "group": "backend/worker",
+        "size": 117
+      },
+      {
+        "id": "Dockerfile.frontend",
+        "group": "",
+        "size": 489
+      },
+      {
+        "id": ".github/workflows/telemetry.yml",
+        "group": ".github/workflows",
+        "size": 487
+      },
+      {
+        "id": "frontend/src/components/ui/animated-container.tsx",
+        "group": "frontend/src/components/ui",
+        "size": 260
+      },
+      {
+        "id": "frontend/tsconfig.json",
+        "group": "frontend",
+        "size": 108
+      },
+      {
+        "id": "backend/worker/__init__.py",
+        "group": "backend/worker",
+        "size": 404
+      },
+      {
+        "id": "frontend/src/components/ui/badge.tsx",
+        "group": "frontend/src/components/ui",
+        "size": 470
+      },
+      {
+        "id": "frontend/tsconfig.node.json",
+        "group": "frontend",
+        "size": 418
+      },
+      {
+        "id": "backend/app/main.py",
+        "group": "backend/app",
+        "size": 250
+      },
+      {
+        "id": "frontend/src/index.css",
+        "group": "frontend/src",
+        "size": 348
+      },
+      {
+        "id": "backend/app/core/db_client.py",
+        "group": "backend/app/core",
+        "size": 137
+      },
+      {
+        "id": "backend/app/config.py",
+        "group": "backend/app",
+        "size": 279
+      },
+      {
+        "id": "backend/app/core/narrative.py",
+        "group": "backend/app/core",
+        "size": 251
+      },
+      {
+        "id": "frontend/src/components/ui/navigation-menu.tsx",
+        "group": "frontend/src/components/ui",
+        "size": 370
       }
     ],
     "links": [
@@ -922,183 +922,183 @@
   },
   "metrics": {
     "churn": {
-      ".dockerignore": 98,
-      ".github/workflows/telemetry.yml": 197,
-      ".gitignore": 79,
-      "Dockerfile.backend": 93,
-      "Dockerfile.frontend": 66,
-      "Dockerfile.worker": 252,
-      "README.md": 315,
-      "backend/app/__init__.py": 162,
-      "backend/app/api/__init__.py": 100,
-      "backend/app/api/analyze.py": 254,
-      "backend/app/api/health.py": 397,
-      "backend/app/api/history.py": 110,
-      "backend/app/api/results.py": 38,
-      "backend/app/api/status.py": 315,
-      "backend/app/config.py": 104,
-      "backend/app/core/__init__.py": 237,
-      "backend/app/core/db_client.py": 277,
-      "backend/app/core/github_client.py": 436,
-      "backend/app/core/graph_builder.py": 222,
-      "backend/app/core/import_parser.py": 289,
-      "backend/app/core/llm_client.py": 102,
-      "backend/app/core/metrics.py": 427,
-      "backend/app/core/narrative.py": 411,
-      "backend/app/main.py": 72,
-      "backend/app/utils/__init__.py": 232,
-      "backend/requirements.txt": 301,
-      "backend/worker/__init__.py": 434,
-      "backend/worker/worker.py": 356,
-      "docker-compose.yml": 170,
-      "frontend/.gitignore": 183,
-      "frontend/README.md": 217,
-      "frontend/components.json": 33,
-      "frontend/eslint.config.js": 99,
-      "frontend/index.html": 96,
-      "frontend/package-lock.json": 482,
-      "frontend/package.json": 448,
-      "frontend/public/vite.svg": 168,
-      "frontend/src/App.tsx": 364,
-      "frontend/src/components/ChatInput.tsx": 380,
-      "frontend/src/components/GraphDisplay.tsx": 122,
-      "frontend/src/components/ResultsDisplay.tsx": 444,
-      "frontend/src/components/ThemeToggle.tsx": 388,
-      "frontend/src/components/ui/accordion.tsx": 53,
-      "frontend/src/components/ui/alert-dialog.tsx": 413,
-      "frontend/src/components/ui/alert.tsx": 490,
-      "frontend/src/components/ui/animated-container.tsx": 189,
-      "frontend/src/components/ui/aspect-ratio.tsx": 182,
-      "frontend/src/components/ui/avatar.tsx": 290,
-      "frontend/src/components/ui/badge.tsx": 454,
-      "frontend/src/components/ui/breadcrumb.tsx": 358,
-      "frontend/src/components/ui/button-group.tsx": 178,
-      "frontend/src/components/ui/button.tsx": 128,
-      "frontend/src/components/ui/calendar.tsx": 337,
-      "frontend/src/components/ui/card.tsx": 28,
-      "frontend/src/components/ui/carousel.tsx": 469,
-      "frontend/src/components/ui/chart.tsx": 142,
-      "frontend/src/components/ui/checkbox.tsx": 283,
-      "frontend/src/components/ui/collapsible.tsx": 122,
-      "frontend/src/components/ui/command.tsx": 164,
-      "frontend/src/components/ui/context-menu.tsx": 197,
-      "frontend/src/components/ui/dialog.tsx": 138,
-      "frontend/src/components/ui/drawer.tsx": 317,
-      "frontend/src/components/ui/dropdown-menu.tsx": 378,
-      "frontend/src/components/ui/empty.tsx": 289,
-      "frontend/src/components/ui/field.tsx": 39,
-      "frontend/src/components/ui/form.tsx": 394,
-      "frontend/src/components/ui/hover-card.tsx": 46,
-      "frontend/src/components/ui/input-group.tsx": 206,
-      "frontend/src/components/ui/input-otp.tsx": 85,
-      "frontend/src/components/ui/input.tsx": 225,
-      "frontend/src/components/ui/item.tsx": 60,
-      "frontend/src/components/ui/kbd.tsx": 41,
-      "frontend/src/components/ui/label.tsx": 421,
-      "frontend/src/components/ui/menubar.tsx": 43,
-      "frontend/src/components/ui/navigation-menu.tsx": 308,
-      "frontend/src/components/ui/pagination.tsx": 385,
-      "frontend/src/components/ui/popover.tsx": 462,
-      "frontend/src/components/ui/progress.tsx": 125,
-      "frontend/src/components/ui/radio-group.tsx": 286,
-      "frontend/src/components/ui/resizable.tsx": 264,
-      "frontend/src/components/ui/scroll-area.tsx": 93,
-      "frontend/src/components/ui/select.tsx": 406,
-      "frontend/src/components/ui/separator.tsx": 44,
-      "frontend/src/components/ui/sheet.tsx": 125,
-      "frontend/src/components/ui/sidebar.tsx": 249,
-      "frontend/src/components/ui/skeleton.tsx": 334,
-      "frontend/src/components/ui/slider.tsx": 137,
-      "frontend/src/components/ui/sonner.tsx": 259,
-      "frontend/src/components/ui/spinner.tsx": 17,
-      "frontend/src/components/ui/switch.tsx": 239,
-      "frontend/src/components/ui/table.tsx": 196,
-      "frontend/src/components/ui/tabs.tsx": 285,
-      "frontend/src/components/ui/textarea.tsx": 63,
-      "frontend/src/components/ui/toggle-group.tsx": 116,
-      "frontend/src/components/ui/toggle.tsx": 234,
-      "frontend/src/components/ui/tooltip.tsx": 80,
-      "frontend/src/hooks/use-mobile.ts": 414,
-      "frontend/src/index.css": 449,
-      "frontend/src/lib/utils.ts": 134,
-      "frontend/src/main.tsx": 157,
-      "frontend/src/types.ts": 423,
-      "frontend/tsconfig.app.json": 174,
-      "frontend/tsconfig.json": 406,
-      "frontend/tsconfig.node.json": 255,
-      "frontend/vite.config.ts": 365,
-      "render.yaml": 444,
-      "scripts/extract_telemetry.py": 102,
-      "telemetry.json": 270
+      ".dockerignore": 329,
+      ".github/workflows/telemetry.yml": 487,
+      ".gitignore": 333,
+      "Dockerfile.backend": 394,
+      "Dockerfile.frontend": 489,
+      "Dockerfile.worker": 395,
+      "README.md": 134,
+      "backend/app/__init__.py": 430,
+      "backend/app/api/__init__.py": 118,
+      "backend/app/api/analyze.py": 44,
+      "backend/app/api/health.py": 475,
+      "backend/app/api/history.py": 368,
+      "backend/app/api/results.py": 471,
+      "backend/app/api/status.py": 371,
+      "backend/app/config.py": 279,
+      "backend/app/core/__init__.py": 222,
+      "backend/app/core/db_client.py": 137,
+      "backend/app/core/github_client.py": 96,
+      "backend/app/core/graph_builder.py": 187,
+      "backend/app/core/import_parser.py": 389,
+      "backend/app/core/llm_client.py": 469,
+      "backend/app/core/metrics.py": 362,
+      "backend/app/core/narrative.py": 251,
+      "backend/app/main.py": 250,
+      "backend/app/utils/__init__.py": 484,
+      "backend/requirements.txt": 32,
+      "backend/worker/__init__.py": 404,
+      "backend/worker/worker.py": 117,
+      "docker-compose.yml": 400,
+      "frontend/.gitignore": 452,
+      "frontend/README.md": 335,
+      "frontend/components.json": 489,
+      "frontend/eslint.config.js": 31,
+      "frontend/index.html": 242,
+      "frontend/package-lock.json": 342,
+      "frontend/package.json": 29,
+      "frontend/public/vite.svg": 391,
+      "frontend/src/App.tsx": 17,
+      "frontend/src/components/ChatInput.tsx": 120,
+      "frontend/src/components/GraphDisplay.tsx": 39,
+      "frontend/src/components/ResultsDisplay.tsx": 72,
+      "frontend/src/components/ThemeToggle.tsx": 235,
+      "frontend/src/components/ui/accordion.tsx": 106,
+      "frontend/src/components/ui/alert-dialog.tsx": 30,
+      "frontend/src/components/ui/alert.tsx": 86,
+      "frontend/src/components/ui/animated-container.tsx": 260,
+      "frontend/src/components/ui/aspect-ratio.tsx": 374,
+      "frontend/src/components/ui/avatar.tsx": 392,
+      "frontend/src/components/ui/badge.tsx": 470,
+      "frontend/src/components/ui/breadcrumb.tsx": 399,
+      "frontend/src/components/ui/button-group.tsx": 75,
+      "frontend/src/components/ui/button.tsx": 290,
+      "frontend/src/components/ui/calendar.tsx": 151,
+      "frontend/src/components/ui/card.tsx": 386,
+      "frontend/src/components/ui/carousel.tsx": 158,
+      "frontend/src/components/ui/chart.tsx": 446,
+      "frontend/src/components/ui/checkbox.tsx": 382,
+      "frontend/src/components/ui/collapsible.tsx": 55,
+      "frontend/src/components/ui/command.tsx": 112,
+      "frontend/src/components/ui/context-menu.tsx": 342,
+      "frontend/src/components/ui/dialog.tsx": 241,
+      "frontend/src/components/ui/drawer.tsx": 482,
+      "frontend/src/components/ui/dropdown-menu.tsx": 451,
+      "frontend/src/components/ui/empty.tsx": 150,
+      "frontend/src/components/ui/field.tsx": 116,
+      "frontend/src/components/ui/form.tsx": 463,
+      "frontend/src/components/ui/hover-card.tsx": 411,
+      "frontend/src/components/ui/input-group.tsx": 316,
+      "frontend/src/components/ui/input-otp.tsx": 309,
+      "frontend/src/components/ui/input.tsx": 490,
+      "frontend/src/components/ui/item.tsx": 274,
+      "frontend/src/components/ui/kbd.tsx": 272,
+      "frontend/src/components/ui/label.tsx": 221,
+      "frontend/src/components/ui/menubar.tsx": 11,
+      "frontend/src/components/ui/navigation-menu.tsx": 370,
+      "frontend/src/components/ui/pagination.tsx": 267,
+      "frontend/src/components/ui/popover.tsx": 148,
+      "frontend/src/components/ui/progress.tsx": 134,
+      "frontend/src/components/ui/radio-group.tsx": 497,
+      "frontend/src/components/ui/resizable.tsx": 64,
+      "frontend/src/components/ui/scroll-area.tsx": 302,
+      "frontend/src/components/ui/select.tsx": 479,
+      "frontend/src/components/ui/separator.tsx": 384,
+      "frontend/src/components/ui/sheet.tsx": 130,
+      "frontend/src/components/ui/sidebar.tsx": 423,
+      "frontend/src/components/ui/skeleton.tsx": 286,
+      "frontend/src/components/ui/slider.tsx": 106,
+      "frontend/src/components/ui/sonner.tsx": 178,
+      "frontend/src/components/ui/spinner.tsx": 354,
+      "frontend/src/components/ui/switch.tsx": 312,
+      "frontend/src/components/ui/table.tsx": 226,
+      "frontend/src/components/ui/tabs.tsx": 418,
+      "frontend/src/components/ui/textarea.tsx": 137,
+      "frontend/src/components/ui/toggle-group.tsx": 389,
+      "frontend/src/components/ui/toggle.tsx": 28,
+      "frontend/src/components/ui/tooltip.tsx": 482,
+      "frontend/src/hooks/use-mobile.ts": 15,
+      "frontend/src/index.css": 348,
+      "frontend/src/lib/utils.ts": 357,
+      "frontend/src/main.tsx": 301,
+      "frontend/src/types.ts": 437,
+      "frontend/tsconfig.app.json": 367,
+      "frontend/tsconfig.json": 108,
+      "frontend/tsconfig.node.json": 418,
+      "frontend/vite.config.ts": 431,
+      "render.yaml": 173,
+      "scripts/extract_telemetry.py": 50,
+      "telemetry.json": 147
     },
     "hotspots": [
-      "frontend/src/components/ui/alert.tsx",
-      "frontend/package-lock.json",
-      "frontend/src/components/ui/carousel.tsx",
-      "frontend/src/components/ui/popover.tsx",
-      "frontend/src/components/ui/badge.tsx",
-      "frontend/src/index.css",
-      "frontend/package.json",
-      "frontend/src/components/ResultsDisplay.tsx",
-      "render.yaml",
-      "backend/app/core/github_client.py"
+      "frontend/src/components/ui/radio-group.tsx",
+      "frontend/src/components/ui/input.tsx",
+      "Dockerfile.frontend",
+      "frontend/components.json",
+      ".github/workflows/telemetry.yml",
+      "backend/app/utils/__init__.py",
+      "frontend/src/components/ui/drawer.tsx",
+      "frontend/src/components/ui/tooltip.tsx",
+      "frontend/src/components/ui/select.tsx",
+      "backend/app/api/health.py"
     ]
   },
   "clusters": {
-    "": [
-      "telemetry.json",
-      "render.yaml",
-      "docker-compose.yml",
-      ".dockerignore",
-      "Dockerfile.backend",
-      "Dockerfile.frontend",
-      "Dockerfile.worker",
-      "README.md"
+    "backend/app/api": [
+      "backend/app/api/health.py",
+      "backend/app/api/status.py",
+      "backend/app/api/history.py",
+      "backend/app/api/__init__.py",
+      "backend/app/api/results.py",
+      "backend/app/api/analyze.py"
     ],
-    "backend/app/core": [
-      "backend/app/core/github_client.py",
-      "backend/app/core/narrative.py",
-      "backend/app/core/metrics.py",
-      "backend/app/core/db_client.py",
-      "backend/app/core/import_parser.py",
-      "backend/app/core/llm_client.py",
-      "backend/app/core/__init__.py",
-      "backend/app/core/graph_builder.py"
+    "": [
+      "render.yaml",
+      ".dockerignore",
+      "telemetry.json",
+      "docker-compose.yml",
+      "README.md",
+      "Dockerfile.backend",
+      "Dockerfile.worker",
+      "Dockerfile.frontend"
     ],
     "frontend": [
-      "frontend/index.html",
-      "frontend/components.json",
-      "frontend/README.md",
-      "frontend/tsconfig.json",
-      "frontend/tsconfig.app.json",
-      "frontend/tsconfig.node.json",
       "frontend/eslint.config.js",
-      "frontend/vite.config.ts"
-    ],
-    "backend/app/api": [
-      "backend/app/api/__init__.py",
-      "backend/app/api/history.py",
-      "backend/app/api/results.py",
-      "backend/app/api/analyze.py",
-      "backend/app/api/status.py",
-      "backend/app/api/health.py"
+      "frontend/README.md",
+      "frontend/vite.config.ts",
+      "frontend/components.json",
+      "frontend/index.html",
+      "frontend/tsconfig.app.json",
+      "frontend/tsconfig.json",
+      "frontend/tsconfig.node.json"
     ],
     "frontend/src/components": [
       "frontend/src/components/ChatInput.tsx",
+      "frontend/src/components/ResultsDisplay.tsx",
       "frontend/src/components/ThemeToggle.tsx",
-      "frontend/src/components/GraphDisplay.tsx",
-      "frontend/src/components/ResultsDisplay.tsx"
-    ],
-    "frontend/src": [
-      "frontend/src/App.tsx",
-      "frontend/src/index.css",
-      "frontend/src/types.ts",
-      "frontend/src/main.tsx"
+      "frontend/src/components/GraphDisplay.tsx"
     ],
     "backend/app": [
-      "backend/app/config.py",
+      "backend/app/__init__.py",
       "backend/app/main.py",
-      "backend/app/__init__.py"
+      "backend/app/config.py"
+    ],
+    "backend/app/core": [
+      "backend/app/core/graph_builder.py",
+      "backend/app/core/llm_client.py",
+      "backend/app/core/import_parser.py",
+      "backend/app/core/__init__.py",
+      "backend/app/core/github_client.py",
+      "backend/app/core/metrics.py",
+      "backend/app/core/db_client.py",
+      "backend/app/core/narrative.py"
+    ],
+    "frontend/src": [
+      "frontend/src/main.tsx",
+      "frontend/src/App.tsx",
+      "frontend/src/types.ts",
+      "frontend/src/index.css"
     ]
   },
   "narrative": "This is a placeholder for the generated narrative."

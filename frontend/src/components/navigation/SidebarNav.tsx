@@ -8,8 +8,7 @@ import {
   BookOpen, 
   Plus,
   GitBranch,
-  HeartPulse,
-  Settings2
+  HeartPulse
 } from "lucide-react";
 import { Button } from "../../components/ui/button";
 
@@ -31,7 +30,6 @@ export function SidebarNav() {
     { label: "Dead Code", icon: Skull, path: `/repositories/${repoId}/dead-code` },
     { label: "Guided Tour", icon: Map, path: `/repositories/${repoId}/guided-tour` },
     { label: "Onboarding Docs", icon: BookOpen, path: `/repositories/${repoId}/onboarding` },
-    { label: "Settings", icon: Settings2, path: `/repositories/${repoId}/settings` },
   ];
 
   return (

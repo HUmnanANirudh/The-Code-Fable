@@ -51,14 +51,97 @@ def _parse_package_dependencies(package_json_text: str) -> list[dict]:
     return dependencies
 
 
-def _read_workspace_dependency_inventory() -> dict:
-    backend_pyproject = _read_text_file(WORKSPACE_ROOT / "backend" / "pyproject.toml")
-    frontend_package_json = _read_text_file(WORKSPACE_ROOT / "frontend" / "package.json")
+def _parse_requirements_dependencies(text: str) -> list[dict]:
+    dependencies = []
+    for raw_line in text.splitlines():
+        line = raw_line.strip()
+        if not line or line.startswith("#"):
+            continue
+        if line.startswith("-"):
+            continue
+        dependencies.append({"name": line, "display": line})
+    return dependencies
 
-    return {
-        "backend": _parse_python_dependencies(backend_pyproject),
-        "frontend": _parse_package_dependencies(frontend_package_json),
-    }
+
+def _parse_pyproject_project_name(text: str) -> str:
+    project_match = re.search(r'(?ms)^\s*name\s*=\s*["\']([^"\']+)["\']', text)
+    if project_match:
+        return project_match.group(1)
+    poetry_match = re.search(r'(?ms)^\s*name\s*=\s*["\']([^"\']+)["\']', text)
+    if poetry_match:
+        return poetry_match.group(1)
+    return "python-project"
+
+
+def _manifest_group_label(path: Path) -> str:
+    try:
+        return str(path.parent.relative_to(WORKSPACE_ROOT)) or "."
+    except Exception:
+        return str(path.parent)
+
+
+def _read_workspace_dependency_inventory() -> list[dict]:
+    manifests: list[dict] = []
+    seen_paths: set[str] = set()
+
+    for manifest_path in sorted(WORKSPACE_ROOT.rglob("package.json")):
+        if any(part in {"node_modules", "dist", "build", ".git"} for part in manifest_path.parts):
+            continue
+        text = _read_text_file(manifest_path)
+        if not text:
+            continue
+        group_label = _manifest_group_label(manifest_path)
+        try:
+            package_json = json.loads(text)
+            package_name = package_json.get("name") or group_label
+        except Exception:
+            package_name = group_label
+        key = f"{group_label}:{manifest_path.name}"
+        if key in seen_paths:
+            continue
+        seen_paths.add(key)
+        manifests.append({
+            "label": package_name,
+            "path": str(manifest_path.relative_to(WORKSPACE_ROOT)),
+            "kind": "package.json",
+            "dependencies": _parse_package_dependencies(text),
+        })
+
+    for manifest_path in sorted(WORKSPACE_ROOT.rglob("pyproject.toml")):
+        if any(part in {"node_modules", "dist", "build", ".git"} for part in manifest_path.parts):
+            continue
+        text = _read_text_file(manifest_path)
+        if not text:
+            continue
+        key = f"{manifest_path.parent}:{manifest_path.name}"
+        if key in seen_paths:
+            continue
+        seen_paths.add(key)
+        manifests.append({
+            "label": _parse_pyproject_project_name(text),
+            "path": str(manifest_path.relative_to(WORKSPACE_ROOT)),
+            "kind": "pyproject.toml",
+            "dependencies": _parse_python_dependencies(text),
+        })
+
+    for manifest_path in sorted(WORKSPACE_ROOT.rglob("requirements.txt")):
+        if any(part in {"node_modules", "dist", "build", ".git"} for part in manifest_path.parts):
+            continue
+        text = _read_text_file(manifest_path)
+        if not text:
+            continue
+        key = f"{manifest_path.parent}:{manifest_path.name}"
+        if key in seen_paths:
+            continue
+        seen_paths.add(key)
+        manifests.append({
+            "label": _manifest_group_label(manifest_path),
+            "path": str(manifest_path.relative_to(WORKSPACE_ROOT)),
+            "kind": "requirements.txt",
+            "dependencies": _parse_requirements_dependencies(text),
+        })
+
+    return manifests
 
 
 def _count_files(tree: dict) -> int:

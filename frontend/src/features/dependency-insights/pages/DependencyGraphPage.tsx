@@ -14,7 +14,7 @@ export function DependencyGraphPage() {
     queryFn: () => api.analytics.health(repoId),
     enabled: !!repoId && !!repo?.last_analyzed,
   });
-  const workspaceDependencies = health?.health?.workspace_dependencies;
+  const workspaceDependencies = health?.health?.workspace_dependencies || [];
 
   if (isLoading && !repo) {
     return (
@@ -65,38 +65,36 @@ export function DependencyGraphPage() {
       <Card>
         <CardHeader>
           <CardTitle>Project Dependencies</CardTitle>
-          <CardDescription>Installed backend and frontend packages in this workspace.</CardDescription>
+          <CardDescription>Installed packages grouped by discovered project manifest.</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="space-y-5">
-            <div>
-              <div className="mb-2 text-sm font-medium">Backend</div>
-              <div className="flex flex-wrap gap-2">
-                {workspaceDependencies?.backend?.length ? (
-                  workspaceDependencies.backend.map((dependency: any) => (
-                    <Badge key={dependency.display} variant="secondary">
-                      {dependency.display}
-                    </Badge>
-                  ))
-                ) : (
-                  <p className="text-sm text-muted-foreground">No backend dependency list available.</p>
-                )}
-              </div>
-            </div>
-            <div>
-              <div className="mb-2 text-sm font-medium">Frontend</div>
-              <div className="flex flex-wrap gap-2">
-                {workspaceDependencies?.frontend?.length ? (
-                  workspaceDependencies.frontend.map((dependency: any) => (
-                    <Badge key={dependency.display} variant="secondary">
-                      {dependency.display}
-                    </Badge>
-                  ))
-                ) : (
-                  <p className="text-sm text-muted-foreground">No frontend dependency list available.</p>
-                )}
-              </div>
-            </div>
+            {workspaceDependencies.length ? (
+              workspaceDependencies.map((group: any) => (
+                <div key={`${group.path}-${group.kind}`} className="rounded-lg border border-border bg-card/60 p-4">
+                  <div className="flex items-start justify-between gap-4">
+                    <div>
+                      <div className="font-medium">{group.label}</div>
+                      <div className="text-xs text-muted-foreground">{group.path} · {group.kind}</div>
+                    </div>
+                    <Badge variant="secondary">{group.dependencies?.length ?? 0}</Badge>
+                  </div>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {group.dependencies?.length ? (
+                      group.dependencies.map((dependency: any) => (
+                        <Badge key={dependency.display} variant="outline">
+                          {dependency.display}
+                        </Badge>
+                      ))
+                    ) : (
+                      <p className="text-sm text-muted-foreground">No dependencies declared in this project.</p>
+                    )}
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p className="text-sm text-muted-foreground">No project manifests were found in this workspace.</p>
+            )}
           </div>
         </CardContent>
       </Card>

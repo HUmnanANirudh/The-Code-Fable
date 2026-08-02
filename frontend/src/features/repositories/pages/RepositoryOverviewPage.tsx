@@ -10,6 +10,7 @@ export function RepositoryOverviewPage() {
   const { data: repo, isLoading, error } = useRepository(repoId);
 
   const intelligence = repo?.intelligence ?? {};
+  const techStack = intelligence.tech_stack ?? [];
 
   if (isLoading && !repo) {
     return (
@@ -126,8 +127,12 @@ export function RepositoryOverviewPage() {
           <CardDescription>Languages and frameworks detected in the analysis.</CardDescription>
         </CardHeader>
         <CardContent className="flex flex-wrap gap-2">
-          {(intelligence.tech_stack || []).length > 0 ? (
-            intelligence.tech_stack.map((item: string) => <Badge key={item} variant="secondary">{item}</Badge>)
+          {techStack.length > 0 ? (
+            techStack.map((item: string) => (
+              <Badge key={item} variant="secondary">
+                {item}
+              </Badge>
+            ))
           ) : (
             <p className="text-sm text-muted-foreground">No stack data captured yet.</p>
           )}

@@ -6,7 +6,10 @@ import {
   Skull, 
   Map, 
   BookOpen, 
-  Plus
+  Plus,
+  GitBranch,
+  HeartPulse,
+  Settings2
 } from "lucide-react";
 import { Button } from "../../components/ui/button";
 
@@ -23,9 +26,12 @@ export function SidebarNav() {
     { label: "Overview", icon: LayoutDashboard, path: `/repositories/${repoId}` },
     { label: "Search", icon: Search, path: `/repositories/${repoId}/search` },
     { label: "Architecture", icon: Network, path: `/repositories/${repoId}/architecture` },
+    { label: "Dependencies", icon: GitBranch, path: `/repositories/${repoId}/dependencies` },
+    { label: "Health Dashboard", icon: HeartPulse, path: `/repositories/${repoId}/health` },
     { label: "Dead Code", icon: Skull, path: `/repositories/${repoId}/dead-code` },
     { label: "Guided Tour", icon: Map, path: `/repositories/${repoId}/guided-tour` },
     { label: "Onboarding Docs", icon: BookOpen, path: `/repositories/${repoId}/onboarding` },
+    { label: "Settings", icon: Settings2, path: `/repositories/${repoId}/settings` },
   ];
 
   return (

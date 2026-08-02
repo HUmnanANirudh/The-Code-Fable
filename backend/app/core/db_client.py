@@ -24,10 +24,17 @@ class DBClient:
                 return json.loads(repo_data)
         return None
 
-    def create_repo(self, owner: str, name: str, is_public: bool) -> Dict[str, Any]:
+    def create_repo(
+        self,
+        owner: str,
+        name: str,
+        is_public: bool,
+        repo_info: Optional[Dict[str, Any]] = None,
+    ) -> Dict[str, Any]:
         """
         Creates a new repository entry.
         """
+        repo_info = repo_info or {}
         repo_id = str(uuid.uuid4())
         new_repo = {
             "id": repo_id,

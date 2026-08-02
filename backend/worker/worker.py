@@ -42,17 +42,21 @@ def run_analysis(owner: str, repo: str, repo_id: str):
     }
 
     # Build directory tree viewer
-    def build_tree(paths):
+    def build_tree(items):
         tree = {}
-        for path in paths:
+        for item in items:
+            path = item['path']
             parts = path.split('/')
             current = tree
-            for part in parts:
-                current = current.setdefault(part, {})
+            for index, part in enumerate(parts):
+                is_last_part = index == len(parts) - 1
+                if is_last_part and item['type'] == 'blob':
+                    current[part] = None
+                else:
+                    current = current.setdefault(part, {})
         return tree
 
-    tree_paths = [item['path'] for item in file_tree if item['type'] == 'tree']
-    tree_viewer = build_tree(tree_paths)
+    tree_viewer = build_tree(file_tree)
 
     # Parse imports to find dependencies
     import_parser = ImportParser(github_client)

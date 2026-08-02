@@ -12,10 +12,11 @@ export function LandingPage() {
   const navigate = useNavigate();
 
   const analyzeMutation = useMutation({
-    mutationFn: repositoryApi.analyzeRepository,
+    mutationFn: repositoryApi.createRepository,
     onSuccess: (data) => {
-      // Assuming analysis returns repo ID to navigate
-      navigate({ to: "/repositories/$repoId", params: { repoId: data.id } });
+      if (data?.id) {
+        navigate({ to: "/repositories/$repoId", params: { repoId: data.id } });
+      }
     },
     onError: (error: Error) => {
       toast.error(error.message || "Failed to analyze repository");

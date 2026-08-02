@@ -6,5 +6,7 @@ export function useRepository(repoId: string) {
     queryKey: ["repository", repoId],
     queryFn: () => repositoryApi.getRepository(repoId),
     enabled: !!repoId,
+    refetchInterval: (query) => (query.state.data?.last_analyzed ? false : 3000),
+    refetchOnWindowFocus: false,
   });
 }

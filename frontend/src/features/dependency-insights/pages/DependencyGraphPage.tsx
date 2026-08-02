@@ -28,7 +28,7 @@ export function DependencyGraphPage() {
     <div className="h-full flex flex-col space-y-6">
       <div>
         <h1 className="text-3xl font-semibold tracking-tight mb-2">Dependencies</h1>
-        <p className="text-muted-foreground">Text summary of stored dependency analysis. Visual graphs are removed.</p>
+        <p className="text-muted-foreground">All file-to-file dependencies extracted from the stored analysis graph.</p>
       </div>
 
       <Card>
@@ -60,13 +60,44 @@ export function DependencyGraphPage() {
           <CardDescription>Existing repo data only, no rendered diagram.</CardDescription>
         </CardHeader>
         <CardContent>
-          {repo?.graph?.nodes?.length ? (
+          {repo?.graph?.links?.length ? (
             <div className="flex flex-wrap gap-2">
-              <Badge variant="secondary">Nodes: {repo.graph.nodes.length}</Badge>
-              <Badge variant="secondary">Links: {repo.graph.links?.length ?? 0}</Badge>
+              <Badge variant="secondary">Nodes: {repo.graph.nodes?.length ?? 0}</Badge>
+              <Badge variant="secondary">Links: {repo.graph.links.length}</Badge>
             </div>
           ) : (
             <p className="text-sm text-muted-foreground">No dependency graph data is available yet.</p>
+          )}
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Dependency List</CardTitle>
+          <CardDescription>Every edge in the file graph, in plain text.</CardDescription>
+        </CardHeader>
+        <CardContent>
+          {repo?.graph?.links?.length ? (
+            <div className="max-h-[520px] overflow-auto rounded-lg border border-border">
+              <table className="w-full text-sm">
+                <thead className="sticky top-0 bg-background/95 text-left">
+                  <tr className="border-b border-border">
+                    <th className="px-4 py-3 font-medium">Source</th>
+                    <th className="px-4 py-3 font-medium">Target</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {repo.graph.links.map((link: any, index: number) => (
+                    <tr key={`${link.source}-${link.target}-${index}`} className="border-b border-border/60 last:border-b-0">
+                      <td className="px-4 py-2 break-all text-muted-foreground">{link.source}</td>
+                      <td className="px-4 py-2 break-all">{link.target}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ) : (
+            <p className="text-sm text-muted-foreground">No dependencies were captured yet.</p>
           )}
         </CardContent>
       </Card>

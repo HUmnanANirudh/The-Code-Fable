@@ -1,6 +1,7 @@
 import { useParams } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
+import { useRepository } from "../../repositories/hooks/useRepository";
 import {
   XAxis,
   YAxis,
@@ -24,13 +25,16 @@ import {
 
 export function HealthDashboardPage() {
   const { repoId } = useParams({ strict: false }) as { repoId: string };
+  const { data: repo } = useRepository(repoId);
   const { data, isLoading, error } = useQuery({
     queryKey: ["health", repoId],
     queryFn: () => api.analytics.health(repoId),
-    enabled: !!repoId,
+    enabled: !!repoId && !!repo?.last_analyzed,
+    refetchInterval: (query) => (query.state.data ? false : 3000),
   });
 
   const health = data?.health;
+  const dependencyMetrics = health?.dependency_metrics;
 
   if (isLoading) {
     return (
@@ -48,7 +52,7 @@ export function HealthDashboardPage() {
     );
   }
 
-  const fanMetrics = health?.module_metrics || [];
+  const fanMetrics = dependencyMetrics?.top_files || [];
   const languageMetrics = health?.language_distribution || [];
 
   return (
@@ -121,8 +125,8 @@ export function HealthDashboardPage() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Fan-In / Fan-Out Distribution</CardTitle>
-            <CardDescription>Most connected modules in the analysis graph.</CardDescription>
+            <CardTitle>Most Connected Files</CardTitle>
+            <CardDescription>Files with the highest incoming and outgoing dependency counts.</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="h-[360px] w-full">
@@ -130,17 +134,17 @@ export function HealthDashboardPage() {
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={fanMetrics.slice(0, 10)}>
                     <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
-                    <XAxis dataKey="label" tickMargin={10} interval={0} angle={-15} textAnchor="end" height={70} />
+                    <XAxis dataKey="id" tickMargin={10} interval={0} angle={-15} textAnchor="end" height={70} />
                     <YAxis />
                     <Tooltip />
                     <Legend />
-                    <Bar dataKey="fan_in" name="Fan In" fill="hsl(var(--primary))" radius={[6, 6, 0, 0]} />
-                    <Bar dataKey="fan_out" name="Fan Out" fill="hsl(var(--muted-foreground))" radius={[6, 6, 0, 0]} />
+                    <Bar dataKey="in_degree" name="Incoming" fill="hsl(var(--primary))" radius={[6, 6, 0, 0]} />
+                    <Bar dataKey="out_degree" name="Outgoing" fill="hsl(var(--muted-foreground))" radius={[6, 6, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
               ) : (
                 <div className="flex h-full items-center justify-center rounded-lg border border-dashed border-border text-sm text-muted-foreground">
-                  Module relationship data is not available yet.
+                  Dependency data is not available yet.
                 </div>
               )}
             </div>
@@ -150,8 +154,8 @@ export function HealthDashboardPage() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Top Modules</CardTitle>
-          <CardDescription>Sorted by combined fan-in and fan-out.</CardDescription>
+          <CardTitle>Top Dependencies</CardTitle>
+          <CardDescription>Files with the highest total dependency degree.</CardDescription>
         </CardHeader>
         <CardContent className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
           {fanMetrics.length > 0 ? (
@@ -159,20 +163,51 @@ export function HealthDashboardPage() {
               <div key={module.id} className="rounded-lg border border-border bg-card/60 p-4">
                 <div className="flex items-start justify-between gap-3">
                   <div>
-                    <div className="font-medium">{module.label}</div>
-                    <div className="text-xs text-muted-foreground">{module.files} files</div>
+                    <div className="font-medium break-all">{module.id}</div>
+                    <div className="text-xs text-muted-foreground">{module.group}</div>
                   </div>
-                  <Badge variant="outline">{module.centrality}</Badge>
+                  <Badge variant="outline">{module.degree}</Badge>
                 </div>
                 <div className="mt-3 grid grid-cols-3 gap-2 text-sm text-muted-foreground">
-                  <div>In {module.fan_in}</div>
-                  <div>Out {module.fan_out}</div>
-                  <div>Files {module.files}</div>
+                  <div>In {module.in_degree}</div>
+                  <div>Out {module.out_degree}</div>
+                  <div>Degree {module.degree}</div>
                 </div>
               </div>
             ))
           ) : (
-            <p className="text-sm text-muted-foreground">No module metrics are available yet.</p>
+            <p className="text-sm text-muted-foreground">No dependency metrics are available yet.</p>
+          )}
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Dependency List</CardTitle>
+          <CardDescription>All file-to-file dependencies extracted from the analysis graph.</CardDescription>
+        </CardHeader>
+        <CardContent>
+          {dependencyMetrics?.dependencies?.length ? (
+            <div className="max-h-[420px] overflow-auto rounded-lg border border-border">
+              <table className="w-full text-sm">
+                <thead className="sticky top-0 bg-background/95 text-left">
+                  <tr className="border-b border-border">
+                    <th className="px-4 py-3 font-medium">Source</th>
+                    <th className="px-4 py-3 font-medium">Target</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {dependencyMetrics.dependencies.map((edge: any, index: number) => (
+                    <tr key={`${edge.source}-${edge.target}-${index}`} className="border-b border-border/60 last:border-b-0">
+                      <td className="px-4 py-2 break-all text-muted-foreground">{edge.source}</td>
+                      <td className="px-4 py-2 break-all">{edge.target}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ) : (
+            <p className="text-sm text-muted-foreground">No dependencies were captured yet.</p>
           )}
         </CardContent>
       </Card>

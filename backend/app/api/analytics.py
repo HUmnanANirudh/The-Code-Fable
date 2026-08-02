@@ -54,6 +54,59 @@ def _extract_module_metrics(modules: dict) -> list[dict]:
         for node in ordered_nodes
     ]
 
+
+def _extract_dependency_metrics(graph: dict) -> dict:
+    nodes = graph.get("nodes", []) if isinstance(graph, dict) else []
+    links = graph.get("links", []) if isinstance(graph, dict) else []
+    node_ids = {node.get("id") for node in nodes if isinstance(node, dict) and node.get("id")}
+
+    incoming = defaultdict(int)
+    outgoing = defaultdict(int)
+    adjacency = defaultdict(set)
+    dependency_rows = []
+
+    for link in links:
+        if not isinstance(link, dict):
+            continue
+        source = link.get("source")
+        target = link.get("target")
+        if not source or not target:
+            continue
+        if node_ids and (source not in node_ids or target not in node_ids):
+            continue
+
+        outgoing[source] += 1
+        incoming[target] += 1
+        adjacency[source].add(target)
+        dependency_rows.append({
+            "source": source,
+            "target": target,
+            "source_count": outgoing[source],
+            "target_count": incoming[target],
+        })
+
+    top_files = sorted(
+        [
+            {
+                "id": node.get("id"),
+                "group": node.get("group"),
+                "in_degree": incoming.get(node.get("id"), 0),
+                "out_degree": outgoing.get(node.get("id"), 0),
+                "degree": incoming.get(node.get("id"), 0) + outgoing.get(node.get("id"), 0),
+            }
+            for node in nodes
+            if isinstance(node, dict) and node.get("id")
+        ],
+        key=lambda item: item["degree"],
+        reverse=True,
+    )
+
+    return {
+        "edge_count": len(dependency_rows),
+        "top_files": top_files,
+        "dependencies": dependency_rows,
+    }
+
 @router.get("/analytics/{repo_id}/health")
 def get_health(repo_id: str):
     repo = db_client.get_repo_by_id(repo_id)
@@ -76,6 +129,7 @@ def get_health(repo_id: str):
         "tech_stack": intelligence.get("tech_stack", []),
         "language_distribution": _build_language_distribution(languages),
         "module_metrics": _extract_module_metrics(modules),
+        "dependency_metrics": _extract_dependency_metrics(repo.get("graph") or {}),
     }
 
     return {"status": "ok", "health": health, "metrics": repo.get("metrics") if repo else None}

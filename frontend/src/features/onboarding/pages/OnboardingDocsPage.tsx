@@ -1,15 +1,18 @@
 import { useParams } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { fetcher } from "@/lib/api-client";
 import { Loader2 } from "lucide-react";
 import ReactMarkdown from "react-markdown";
+import { api } from "@/services/api";
+import { useRepository } from "../../repositories/hooks/useRepository";
 
 export function OnboardingDocsPage() {
   const { repoId } = useParams({ strict: false }) as { repoId: string };
+  const { data: repo } = useRepository(repoId);
 
   const { data, isLoading } = useQuery({
     queryKey: ['onboarding', repoId],
-    queryFn: () => fetcher<any>(`/generate/onboarding/${repoId}`, { method: 'POST' }),
+    queryFn: () => api.generate.onboarding(repoId),
+    enabled: !!repo?.last_analyzed,
   });
 
   return (
@@ -20,17 +23,22 @@ export function OnboardingDocsPage() {
       </div>
 
       <div className="linear-card p-8 min-h-[400px]">
+        {!repo?.last_analyzed ? (
+          <div className="mb-4 rounded-lg border border-dashed border-border p-6 text-sm text-muted-foreground">
+            This repository is still being analyzed. Onboarding docs will appear after analysis completes.
+          </div>
+        ) : null}
         {isLoading ? (
           <div className="flex justify-center p-8">
             <Loader2 className="w-8 h-8 animate-spin text-muted-foreground" />
           </div>
-        ) : (
+        ) : repo?.last_analyzed ? (
           <article className="prose prose-invert max-w-none prose-pre:bg-[#1f2023] prose-pre:border prose-pre:border-border">
             <ReactMarkdown>
               {data?.markdown || "Could not generate onboarding documentation."}
             </ReactMarkdown>
           </article>
-        )}
+        ) : null}
       </div>
     </div>
   );

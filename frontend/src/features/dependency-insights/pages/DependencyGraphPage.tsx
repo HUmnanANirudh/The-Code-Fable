@@ -1,12 +1,20 @@
 import { useParams } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
 import { useRepository } from "../../repositories/hooks/useRepository";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { api } from "@/services/api";
 
 export function DependencyGraphPage() {
   const { repoId } = useParams({ strict: false }) as { repoId: string };
   const { data: repo, isLoading, error } = useRepository(repoId);
+  const { data: health } = useQuery({
+    queryKey: ["health", repoId],
+    queryFn: () => api.analytics.health(repoId),
+    enabled: !!repoId && !!repo?.last_analyzed,
+  });
+  const workspaceDependencies = health?.health?.workspace_dependencies;
 
   if (isLoading && !repo) {
     return (
@@ -56,18 +64,40 @@ export function DependencyGraphPage() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Dependency summary</CardTitle>
-          <CardDescription>Existing repo data only, no rendered diagram.</CardDescription>
+          <CardTitle>Project Dependencies</CardTitle>
+          <CardDescription>Installed backend and frontend packages in this workspace.</CardDescription>
         </CardHeader>
         <CardContent>
-          {repo?.graph?.links?.length ? (
-            <div className="flex flex-wrap gap-2">
-              <Badge variant="secondary">Nodes: {repo.graph.nodes?.length ?? 0}</Badge>
-              <Badge variant="secondary">Links: {repo.graph.links.length}</Badge>
+          <div className="space-y-5">
+            <div>
+              <div className="mb-2 text-sm font-medium">Backend</div>
+              <div className="flex flex-wrap gap-2">
+                {workspaceDependencies?.backend?.length ? (
+                  workspaceDependencies.backend.map((dependency: any) => (
+                    <Badge key={dependency.display} variant="secondary">
+                      {dependency.display}
+                    </Badge>
+                  ))
+                ) : (
+                  <p className="text-sm text-muted-foreground">No backend dependency list available.</p>
+                )}
+              </div>
             </div>
-          ) : (
-            <p className="text-sm text-muted-foreground">No dependency graph data is available yet.</p>
-          )}
+            <div>
+              <div className="mb-2 text-sm font-medium">Frontend</div>
+              <div className="flex flex-wrap gap-2">
+                {workspaceDependencies?.frontend?.length ? (
+                  workspaceDependencies.frontend.map((dependency: any) => (
+                    <Badge key={dependency.display} variant="secondary">
+                      {dependency.display}
+                    </Badge>
+                  ))
+                ) : (
+                  <p className="text-sm text-muted-foreground">No frontend dependency list available.</p>
+                )}
+              </div>
+            </div>
+          </div>
         </CardContent>
       </Card>
 
